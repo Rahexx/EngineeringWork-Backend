@@ -1,5 +1,106 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width,initial-scale=1')
+  title Strona g&lstrok;&oacute;wna
+  link(href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;900&display=swap' rel='stylesheet')
+  link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+  link(rel='stylesheet', href='/stylesheets/main.e1ba81f63acc95ff784d.css')
+body.container
+  header.header
+    h1.header__title Szukasz pokoju?
+    p.header__description
+      | U nas w serwisie znajdziesz wiele pokoi. W dodatku poza du&zdot;&aogon; ilo&sacute;ci&aogon; pokoi czeka
+      | Ci&eogon; wiele mo&zdot;liwo&sacute;ci kt&oacute;rych nie ma w innych serwisach.
+    i.fas.fa-angle-double-down.header__icon
+  .burger
+    i.fas.fa-bars
+  nav.navigation
+    ul.navigation__list
+      li.nagivation__item
+        a.navigation__link.navigation__link--active(href='./index.html')
+          | Strona
+          | g&lstrok;&oacute;wna
+      li.nagivation__item
+        a.navigation__link(href='./listRooms.html') Pokoje
+      li.nagivation__item
+        a.navigation__link(href='./favourite.html') Ulubione
+      li.nagivation__item
+        a.navigation__link(href='./searchUsers.html') U&zdot;ytkownicy
+      li.nagivation__item
+        a.navigation__link(href='./messages.html') Wiadomo&sacute;ci
+      li.nagivation__item
+        a.navigation__link(href='./account.html') Konto
+      li.nagivation__item
+        a.navigation__link(href='./admin.html') Admin
+      li.nagivation__item
+        a.navigation__link.navigation__link--logIn(href='./logIn.html')
+          | Zaloguj
+          | si&eogon;
+  main.mainInfo
+    h2.mainInfo__title Najnowsze pokoje do wynaj&eogon;cia
+    .mainInfo__lastFive
+      .mainInfo__roomItem
+        img.mainInfo__ImagesRoom(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjecie pokoju')
+        .mainInfo__textHolder
+          h3.mainInfo__roomTitle Pok&oacute;j tanio z Wi-fi
+          p.mainInfo__roomDescritpion
+            | &Sacute;wietny pok&oacute;j w centrum miasta i to bardzo tanio. Dost&eogon;p do
+            | kuchni i &lstrok;azienki oraz darmowe Wi-fi
+          p.mainInfo__price 1000z&lstrok; / miesi&aogon;c
+          p.mainInfo__location Bytom, Centrum - 26.08
+      .mainInfo__roomItem
+        img.mainInfo__ImagesRoom(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjecie pokoju')
+        .mainInfo__textHolder
+          h3.mainInfo__roomTitle Pok&oacute;j tanio z Wi-fi
+          p.mainInfo__roomDescritpion
+            | &Sacute;wietny pok&oacute;j w centrum miasta i to bardzo tanio. Dost&eogon;p do
+            | kuchni i &lstrok;azienki oraz darmowe Wi-fi
+          p.mainInfo__price 1000z&lstrok; / miesi&aogon;c
+          p.mainInfo__location Bytom, Centrum - 26.08
+      .mainInfo__roomItem
+        img.mainInfo__ImagesRoom(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjecie pokoju')
+        .mainInfo__textHolder
+          h3.mainInfo__roomTitle Pok&oacute;j tanio z Wi-fi
+          p.mainInfo__roomDescritpion
+            | &Sacute;wietny pok&oacute;j w centrum miasta i to bardzo tanio. Dost&eogon;p do
+            | kuchni i &lstrok;azienki oraz darmowe Wi-fi
+          p.mainInfo__price 1000z&lstrok; / miesi&aogon;c
+          p.mainInfo__location Bytom, Centrum - 26.08
+      .mainInfo__roomItem
+        img.mainInfo__ImagesRoom(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjecie pokoju')
+        .mainInfo__textHolder
+          h3.mainInfo__roomTitle Pok&oacute;j tanio z Wi-fi
+          p.mainInfo__roomDescritpion
+            | &Sacute;wietny pok&oacute;j w centrum miasta i to bardzo tanio. Dost&eogon;p do
+            | kuchni i &lstrok;azienki oraz darmowe Wi-fi
+          p.mainInfo__price 1000z&lstrok; / miesi&aogon;c
+          p.mainInfo__location Bytom, Centrum - 26.08
+    h2.mainInfo__title 3 powody dlaczego nale&zdot;y nas wybra&cacute;
+    .mainInfo__whyUs
+      .mainInfo__reason
+        img.mainInfo__reasonImage(src='images/email.6625fd1f6b02553feac7e080bd49ecc5.png' alt='obrazek latających kopert nad mapą świata')
+        .mainInfo__textHolder
+          h2.mainInfo__titleItem &Lstrok;atwy kontakt z u&zdot;ytkownikami
+          p.mainInfo__description
+            | Dzi&eogon;ki mo&zdot;liwo&sacute;ci zg&lstrok;oszenia usterki wszyscy u&zdot;ytkownicy b&eogon;d&aogon;
+            | wiedzie&cacute; co to za usterka i jaki jest jej status. W dodatku w&lstrok;a&sacute;ciciel nie b&eogon;dzie musia&lstrok; dzwoni&cacute;
+            | do Ciebie czy usterka naprawiona, wystarczy &zdot;e sprawdzi status usterki
+      .mainInfo__reason
+        img.mainInfo__reasonImage(src='images/tool.3b59e2c66f02ef84442e928a7d25cdd8.jpg' alt='narzędzia')
+        .mainInfo__textHolder
+          h2.mainInfo__titleItem Zg&lstrok;aszanie usterki w aplikacji
+          p.mainInfo__description
+            | Dzi&eogon;ki mo&zdot;liwo&sacute;ci zg&lstrok;oszenia usterki wszyscy u&zdot;ytkownicy b&eogon;d&aogon;
+            | wiedzie&cacute; co to za usterka i jaki jest jej status. W dodatku w&lstrok;a&sacute;ciciel nie b&eogon;dzie musia&lstrok; dzwoni&cacute;
+            | do Ciebie czy usterka naprawiona, wystarczy &zdot;e sprawdzi status usterki
+      .mainInfo__reason
+        img.mainInfo__reasonImage(src='images/document.c5789c4538db193e617fed2a7fbaecc8.jpg' alt='dokument z piórem')
+        .mainInfo__textHolder
+          h2.mainInfo__titleItem &Lstrok;atwy dost&eogon;p do um&oacute;w
+          p.mainInfo__description
+            | Z nami mo&zdot;esz w ka&zdot;dej chwili przegl&aogon;da&cacute; wszystkie umowy jakie
+            | zawar&lstrok;e&sacute; z w&lstrok;a&sacute;cicielem. R&oacute;wnie&zdot; mo&zdot;esz je pobra&cacute; do siebie w ka&zdot;dej chwili
+  footer.footer
+    p.footer__text &copy; Prawa zastrze&zdot;one przez Andrzej &Lstrok;uszcz
+  script(src='/javascripts/main.2706ec3191df15072433.js')
