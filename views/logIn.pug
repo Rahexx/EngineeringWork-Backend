@@ -1,0 +1,31 @@
+doctype html
+html(lang='pl')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width,initial-scale=1')
+    title Logowanie
+    link(href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;900&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+    link(href='/stylesheets/logIn.e1ba81f63acc95ff784d.css' rel='stylesheet')
+  body.logContainer
+    main.logHolder
+      h1.logHolder__title Logowanie
+      form.logHolder__form
+        .logHolder__field
+          input.logHolder__input(required='')
+          label.logHolder__label(for='login') Login
+          span.logHolder__line
+        .logHolder__field
+          input.logHolder__input(type='password' required='')
+          label.logHolder__label(for='password') Hasło
+          span.logHolder__line
+        input.logHolder__submit(type='submit' value='Zaloguj się')
+      p.logHolder__text
+        | Nie masz konta? 
+        a.logHolder__link(href='./signUp') Zarejestruj się
+      p.logHolder__text.logHolder__text--second
+        | Wróć do 
+        a.logHolder__link(href='./')
+          | Ekranu
+          | głównego
+    script(src='/javascripts/logIn.de306c9a603e9f1e5f23.js')
