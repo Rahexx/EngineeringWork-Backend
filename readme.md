@@ -1,6 +1,6 @@
 # [Praca Inżynierska](https://github.com/Rahexx/EngineeringWork-Backend)
 
-> This is frontend part my engineering work.
+> This is Backend part my engineering work. In this project was used Node.js with framework Express. Database for this project is made in MongoDb, and keeb in MongoDB Atlas. I use for my database mongoose.
 
 ## Table of contents
 
