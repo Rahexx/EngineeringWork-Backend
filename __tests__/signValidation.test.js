@@ -75,7 +75,7 @@ describe('phoneValid', () => {
 
 describe('dateValid', () => {
   it('works', () => {
-    const date = '12-12-1997';
+    const date = '2020-11-06';
 
     expect(dateValid(date)).toBe(date);
   });
@@ -87,7 +87,7 @@ describe('dateValid', () => {
   });
 
   it('handles with wrong format date', () => {
-    const date = '12/12/1997';
+    const date = '1997/12/12';
     const date2 = '1.12.1997';
 
     expect(dateValid(date)).toBe(false);

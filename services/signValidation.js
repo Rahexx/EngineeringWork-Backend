@@ -17,8 +17,6 @@ const emailValid = (email) => {
 
 const phoneValid = (phone) => {
   const stringPhone = phone.toString();
-  console.log(stringPhone);
-  console.log(typeof stringPhone);
 
   const reg = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g;
   const regResult = reg.test(stringPhone);
@@ -27,7 +25,7 @@ const phoneValid = (phone) => {
 };
 
 const dateValid = (date) => {
-  const reg = /(([1-2][0-9])|([1-9])|(3[0-1]))-((1[0-2])|([1-9]))-[0-9]{4}/g;
+  const reg = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/g;
   const regResult = reg.test(date);
 
   return regResult ? date : false;
