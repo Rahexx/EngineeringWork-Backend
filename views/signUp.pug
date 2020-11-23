@@ -32,32 +32,32 @@ html(lang='pl')
             span.signHolder__bulletContent 4
           .signHolder__check.fas.fa-check
       .signHolder__formOuter
-        form.signHolder__form
+        form.signHolder__form(method='post')
           .signHolder__page.signHolder__page--slidePage
             .signHolder__title Podstawowe informacje:
             .signHolder__field
-              input.signHolder__input
-              label.signHolder__label(for='login') Imię
-              p.signHolder__error Długość hasła jest zbyt długa
+              input.signHolder__input(name='name')
+              label.signHolder__label(for='name') Imię
+              p.signHolder__error.name Imię nie może być puste i mieć cyfr
               span.signHolder__line
             .signHolder__field
-              input.signHolder__input
-              label.signHolder__label(for='login') Nazwisko
-              p.signHolder__error Wiadomość errora
+              input.signHolder__input(name='surname')
+              label.signHolder__label(for='surname') Nazwisko
+              p.signHolder__error.surname Nazwisko nie może być puste i mieć cyfr
               span.signHolder__line
             .signHolder__field
               button.signHolder__button.signHolder__button--first Następny
           .signHolder__page
             .signHolder__title kontakt:
             .signHolder__field
-              input.signHolder__input(type='email')
-              label.signHolder__label(for='login') Email
-              p.signHolder__error Wiadomość errora
+              input.signHolder__input(type='email' name='email')
+              label.signHolder__label(for='email') Email
+              p.signHolder__error.email Email musi mieć @ i domenę
               span.signHolder__line
             .signHolder__field
-              input.signHolder__input
-              label.signHolder__label(for='login') Numer telefonu
-              p.signHolder__error Wiadomość errora
+              input.signHolder__input(name='phone')
+              label.signHolder__label(for='phone') Numer telefonu
+              p.signHolder__error.phone Błędny numer telefonu
               span.signHolder__line
             .signHolder__field.signHolder__field--buttons
               button.signHolder__button.previoutButton.previoutButton--1 Poprzedni
@@ -65,31 +65,30 @@ html(lang='pl')
           .signHolder__page
             .signHolder__title Data urodzenia
             .signHolder__field
-              input.signHolder__input(type='date')
+              input.signHolder__input(type='date' name='date')
               label.signHolder__label(for='login') data:
-              p.signHolder__error Wiadomość errora
+              p.signHolder__error.date Wybierz poprawną datę urodzenia
               span.signHolder__line
             .signHolder__field
-              label.signHolder__label.signHolder__label--select(for='login') Płeć
-              select.signHolder__select
+              label.signHolder__label.signHolder__label--select(for='sex') Płeć
+              select.signHolder__select(name='sex')
                 option Mężczyzna
                 option Kobieta
                 option Inne
-              p.signHolder__error Wiadomość errora
             .signHolder__field
               button.signHolder__button.previoutButton.previoutButton--2 Poprzedni
               button.signHolder__button.nextButton.nextButton--2 Następny
           .signHolder__page
             .signHolder__title Dane logowania
             .signHolder__field
-              input.signHolder__input
+              input.signHolder__input(name='login')
               label.signHolder__label(for='login') Login:
-              p.signHolder__error Wiadomość errora
+              p.signHolder__error.login Login musi mieć minimum 3 litery i nie może zawierać znaków specjalnych
               span.signHolder__line
             .signHolder__field
-              input.signHolder__input(type='password')
-              label.signHolder__label(for='login') Hasło:
-              p.signHolder__error Wiadomość errora
+              input.signHolder__input(type='password' name='password')
+              label.signHolder__label(for='password') Hasło:
+              p.signHolder__error.password Hasło musi mieć conajmniej 8 znaków. 1 duża,1 mała litera i 1 cyfra
               span.signHolder__line
             .signHolder__field
               button.signHolder__button.previoutButton.previoutButton--3 Poprzedni
@@ -98,3 +97,4 @@ html(lang='pl')
         | Wróć do 
         a.logHolder__link(href='./logIn') Logowania
     script(src='/javascripts/signUp.5c5f0bdf72a3aaf7f3b9.js')
+    script(src='/javascripts/addUser.js')
