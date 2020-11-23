@@ -16,12 +16,14 @@ const emailValid = (email) => {
 };
 
 const phoneValid = (phone) => {
-  const cleanPhone = phone.trim();
+  const stringPhone = phone.toString();
+  console.log(stringPhone);
+  console.log(typeof stringPhone);
 
   const reg = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g;
-  const regResult = reg.test(cleanPhone);
+  const regResult = reg.test(stringPhone);
 
-  return regResult ? cleanPhone : false;
+  return regResult ? stringPhone : false;
 };
 
 const dateValid = (date) => {
@@ -31,8 +33,25 @@ const dateValid = (date) => {
   return regResult ? date : false;
 };
 
+const loginValid = (login) => {
+  const reg = /^[a-z0-9_-]{3,16}$/gim;
+  const regResult = reg.test(login);
+
+  return regResult ? login : false;
+};
+
+const passwordValid = (password) => {
+  const reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+  const regResult = reg.test(password);
+
+  return regResult ? password : false;
+};
+
 module.exports = {
   nameValid,
   emailValid,
   phoneValid,
+  dateValid,
+  loginValid,
+  passwordValid,
 };

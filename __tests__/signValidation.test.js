@@ -2,6 +2,9 @@ const {
   nameValid,
   emailValid,
   phoneValid,
+  dateValid,
+  loginValid,
+  passwordValid,
 } = require('../services/signValidation');
 
 describe('nameValid', () => {
@@ -67,5 +70,97 @@ describe('phoneValid', () => {
     const phoneNumber = '12aa3456789';
 
     expect(phoneValid(phoneNumber)).toBe(false);
+  });
+});
+
+describe('dateValid', () => {
+  it('works', () => {
+    const date = '12-12-1997';
+
+    expect(dateValid(date)).toBe(date);
+  });
+
+  it('handles with empty date', () => {
+    const date = '';
+
+    expect(dateValid(date)).toBe(false);
+  });
+
+  it('handles with wrong format date', () => {
+    const date = '12/12/1997';
+    const date2 = '1.12.1997';
+
+    expect(dateValid(date)).toBe(false);
+    expect(dateValid(date2)).toBe(false);
+  });
+});
+
+describe('loginValid', () => {
+  it('works', () => {
+    const login = 'Rahexx';
+
+    expect(loginValid(login)).toBe(login);
+  });
+
+  it('works with numbers', () => {
+    const login = 'Rahexx123';
+
+    expect(loginValid(login)).toBe(login);
+  });
+
+  it('handles with empty login', () => {
+    const login = '';
+
+    expect(loginValid(login)).toBe(false);
+  });
+
+  it('handles with special sign', () => {
+    const login = 'Rahexx!';
+
+    expect(loginValid(login)).toBe(false);
+  });
+
+  it('handles with to short login', () => {
+    const login = 'Ra';
+
+    expect(loginValid(login)).toBe(false);
+  });
+
+  it('handles with to long login', () => {
+    const login = 'RahexxRahexxRahexxRahexx';
+
+    expect(loginValid(login)).toBe(false);
+  });
+});
+
+describe('passwordValid', () => {
+  it('works', () => {
+    const password = 'Mongooose12!';
+
+    expect(passwordValid(password)).toBe(password);
+  });
+
+  it('work without special sign', () => {
+    const password = 'Mongooose12';
+
+    expect(passwordValid(password)).toBe(password);
+  });
+
+  it('handles without 1 uppercase letter', () => {
+    const password = 'mongooose12';
+
+    expect(passwordValid(password)).toBe(false);
+  });
+
+  it('handles without 1 lowercase letter', () => {
+    const password = 'MONGOOSE12';
+
+    expect(passwordValid(password)).toBe(false);
+  });
+
+  it('handles with too short password', () => {
+    const password = 'mongo';
+
+    expect(passwordValid(password)).toBe(false);
   });
 });
