@@ -40,9 +40,9 @@ const handleErros = (response) => {
 
 const dowloadData = () => {
   const dataFormValue = [];
-  const formValueLenght = document.forms[0].length;
+  const formValueLength = document.forms[0].length;
 
-  for (let i = 0; i < formValueLenght; i++) {
+  for (let i = 0; i < formValueLength; i++) {
     const item = document.forms[0][i];
 
     if (

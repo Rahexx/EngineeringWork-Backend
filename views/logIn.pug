@@ -10,15 +10,16 @@ html(lang='pl')
   body.logContainer
     main.logHolder
       h1.logHolder__title Logowanie
-      form.logHolder__form
+      form.logHolder__form(method='POST')
         .logHolder__field
-          input.logHolder__input(required='')
+          input.logHolder__input(name='login')
           label.logHolder__label(for='login') Login
           span.logHolder__line
         .logHolder__field
-          input.logHolder__input(type='password' required='')
+          input.logHolder__input(type='password' name='password')
           label.logHolder__label(for='password') Hasło
           span.logHolder__line
+          p.signHolder__error.logIn(style='top:65px') Błędny login lub hasło
         input.logHolder__submit(type='submit' value='Zaloguj się')
       p.logHolder__text
         | Nie masz konta? 
@@ -29,3 +30,4 @@ html(lang='pl')
           | Ekranu
           | głównego
     script(src='/javascripts/logIn.de306c9a603e9f1e5f23.js')
+    script(src='/javascripts/logUser.js')
