@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const User = require('../models/user');
+
 const {
   nameValid,
   emailValid,
@@ -24,14 +26,6 @@ router.post('/', function (req, res, next) {
   const isDateValid = dateValid(body.date);
   const isLoginValid = loginValid(body.login);
   const isPasswordValid = passwordValid(body.password);
-  console.log(isNameValid);
-  console.log(isSurnameValid);
-  console.log(isEmailValid);
-  console.log(isPhoneValid);
-  console.log(isDateValid);
-  console.log(isLoginValid);
-  console.log(isPasswordValid);
-  console.log(body);
 
   if (
     isNameValid &&
@@ -43,7 +37,17 @@ router.post('/', function (req, res, next) {
     isPasswordValid
   ) {
     res.json({ isAdd: true });
-    console.log('Wszystko działa');
+    const newUser = new User({
+      name: isNameValid,
+      surname: isSurnameValid,
+      email: isEmailValid,
+      phone: isPhoneValid,
+      date: isDateValid,
+      sex: body.sex,
+      login: isLoginValid,
+      password: isPasswordValid,
+    });
+    newUser.save();
   } else {
     res.json({
       isAdd: false,
