@@ -34,9 +34,12 @@ body.container
       li.nagivation__item
         a.navigation__link(href='./admin.html') Admin
       li.nagivation__item
-        a.navigation__link.navigation__link--logIn(href='./logIn')
-          | Zaloguj
-          | si&eogon;
+        if role
+          a.navigation__link.navigation__link--logIn(href='./logOut') Wyloguj
+        else
+          a.navigation__link.navigation__link--logIn(href='./logIn')
+            | Zaloguj
+            | si&eogon;
   main.mainInfo
     h2.mainInfo__title Najnowsze pokoje do wynaj&eogon;cia
     .mainInfo__lastFive
