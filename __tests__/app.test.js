@@ -17,3 +17,9 @@ it('It should work for method get on path /logIn.', async () => {
 
   checkResponse(response);
 });
+
+it('It should work for method get on path /signUp.', async () => {
+  const response = await request(app).get('/signUp');
+
+  checkResponse(response);
+});
