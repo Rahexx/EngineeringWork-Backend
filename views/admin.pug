@@ -92,22 +92,24 @@ html(lang='pl')
         .burger.burger--edit
           i.fas.fa-times
         h2.popUp__title Edycja użytkownika:
-        form.popUp__form
+        form.popUp__form(method='post')
           .signHolder__field.signHolder__field--edit
-            input.signHolder__input(value='Rahexx')
+            input.signHolder__input.input--login(value='Rahexx')
             label.signHolder__label Login:
           .signHolder__field.signHolder__field--edit
-            input.signHolder__input(value='Andrzej')
+            input.signHolder__input.input--name(value='Andrzej')
             label.signHolder__label Imię:
           .signHolder__field.signHolder__field--edit
-            input.signHolder__input(value='Łuszcz')
+            input.signHolder__input.input--surname(value='Łuszcz')
             label.signHolder__label Nazwisko:
           .signHolder__field.signHolder__field--edit
-            input.signHolder__input(value='andrzejLuszcz@gmail.com')
+            input.signHolder__input.input--email(value='andrzejLuszcz@gmail.com')
             label.signHolder__label email:
           .signHolder__field.signHolder__field--edit
-            input.signHolder__input(value='602356111')
+            input.signHolder__input.input--phone(value='602356111')
             label.signHolder__label numer telefonu:
+          .signHolder__field.signHolder__field--edit
+            input.adminPanel__button.submitEdit(type='submit', style='margin: 0; transform: translateX(-10%)')
     footer.footer
       p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
     script(src='/javascripts/main.2706ec3191df15072433.js')
