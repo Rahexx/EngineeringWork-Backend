@@ -1,0 +1,289 @@
+doctype html
+html(lang='pl')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width,initial-scale=1')
+    title Admin
+    link(href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;900&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+    link(href='/stylesheets/main.e1ba81f63acc95ff784d.css' rel='stylesheet')
+  body.adminContainer.container
+    header.header
+      h1.header__title Panel administracyjny
+      p.header__description Tutaj możesz usunąć lub z edytować użytkownika
+      i.fas.fa-angle-double-down.header__icon
+    .burger
+      i.fas.fa-bars
+    nav.navigation
+      ul.navigation__list
+        li.nagivation__item
+          a.navigation__link(href='/') Strona główna
+        li.nagivation__item
+          a.navigation__link(href='./listRooms.html') Pokoje
+        li.nagivation__item
+          a.navigation__link(href='./favourite.html') Ulubione
+        li.nagivation__item
+          a.navigation__link(href='./searchUsers.html') Użytkownicy
+        li.nagivation__item
+          a.navigation__link(href='./messages.html') Wiadomości
+        li.nagivation__item
+          a.navigation__link(href='./account.html') Konto
+        li.nagivation__item
+          a.navigation__link.navigation__link--active(href='/') Admin
+        li.nagivation__item
+          if role
+            a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
+          else
+            a.navigation__link.navigation__link--logIn(href='/logIn')
+                | Zaloguj
+                | si&eogon;
+    main.adminPanel
+      form.adminPanel__searchForm
+        input.adminPanel__searchInput(placeholder='Podaj login usera')
+        button.adminPanel__search
+          i.fas.fa-search.adminPanel__icon
+      ul.adminPanel__listUser
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+        li.adminPanel__listItem(data-value='download')
+          p.adminPanel__info
+            | Login: 
+            span.adminPanel__login Rahexx
+          p.adminPanel__info
+            | Email: 
+            span.adminPanel__email andrzejLuszcz@gmail.com
+          p.adminPanel__info
+            | Imię: 
+            span.adminPanel__name Andrzej
+          p.adminPanel__info
+            | Nazwisko: 
+            span.adminPanel__surname Łuszcz
+          button.adminPanel__button.adminPanel__button--details Szczegóły
+          button.adminPanel__button.adminPanel__button--edit Edytuj
+          button.adminPanel__button.adminPanel__button--delete Usuń
+      .popUp.popUp--details
+        .burger.burger--details
+          i.fas.fa-times
+        h2.popUp__title Informacje o użytkowniku:
+        p.popUp__detailsInfo Login: Rahexx
+        p.popUp__detailsInfo Hasło: P************
+        p.popUp__detailsInfo Imię: Andrzej
+        p.popUp__detailsInfo Nazwisko: Łuszcz
+        p.popUp__detailsInfo Email: andrzejLuszcz@gmail.com
+        p.popUp__detailsInfo Numer telefonu: 602356111
+        p.popUp__detailsInfo Data urodzenia: 11.02.1997r
+        p.popUp__detailsInfo płeć: Mężczyzna
+      .popUp.popUp--edit
+        .burger.burger--edit
+          i.fas.fa-times
+        h2.popUp__title Edycja użytkownika:
+        form.popUp__form
+          .signHolder__field.signHolder__field--edit
+            input.signHolder__input(value='Rahexx')
+            label.signHolder__label Login:
+          .signHolder__field.signHolder__field--edit
+            input.signHolder__input(value='Andrzej')
+            label.signHolder__label Imię:
+          .signHolder__field.signHolder__field--edit
+            input.signHolder__input(value='Łuszcz')
+            label.signHolder__label Nazwisko:
+          .signHolder__field.signHolder__field--edit
+            input.signHolder__input(value='andrzejLuszcz@gmail.com')
+            label.signHolder__label email:
+          .signHolder__field.signHolder__field--edit
+            input.signHolder__input(value='602356111')
+            label.signHolder__label numer telefonu:
+    footer.footer
+      p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
+    script(src='/javascripts/main.2706ec3191df15072433.js')
+    script(src='/javascripts/admin.03669b369d8e8c4cc627.js')

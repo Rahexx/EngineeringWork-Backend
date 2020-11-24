@@ -18,7 +18,7 @@ body.container
   nav.navigation
     ul.navigation__list
       li.nagivation__item
-        a.navigation__link.navigation__link--active(href='./')
+        a.navigation__link.navigation__link--active(href='/')
           | Strona
           | g&lstrok;&oacute;wna
       li.nagivation__item
@@ -32,12 +32,12 @@ body.container
       li.nagivation__item
         a.navigation__link(href='./account.html') Konto
       li.nagivation__item
-        a.navigation__link(href='./admin.html') Admin
+        a.navigation__link(href='/admin') Admin
       li.nagivation__item
         if role
-          a.navigation__link.navigation__link--logIn(href='./logOut') Wyloguj
+          a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
         else
-          a.navigation__link.navigation__link--logIn(href='./logIn')
+          a.navigation__link.navigation__link--logIn(href='/logIn')
             | Zaloguj
             | si&eogon;
   main.mainInfo
