@@ -1220,6 +1220,10 @@ table {
   outline: none;
   z-index: 1;
 }
+
+.adminPanel__search:hover {
+  cursor: pointer;
+}
 @media (min-width: 568px) {
   .adminPanel__searchInput {
     left: 50%;

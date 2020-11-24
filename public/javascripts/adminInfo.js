@@ -1,7 +1,11 @@
+// Buttons in admin
 const infoBtn = document.querySelectorAll('.adminPanel__button--details');
 const editBtn = document.querySelectorAll('.adminPanel__button--edit');
 const deleteBtn = document.querySelectorAll('.adminPanel__button--delete');
 const submitEditBtn = document.querySelector('.submitEdit');
+const searchBtn = document.querySelector('.adminPanel__search');
+
+// elements to change value when it's necessary
 const infoName = document.querySelector('.popUp__detailsInfo--name');
 const infoSurname = document.querySelector('.popUp__detailsInfo--surname');
 const infoLogin = document.querySelector('.popUp__detailsInfo--login');
@@ -16,6 +20,7 @@ const editSurname = document.querySelector('.input--surname');
 const editEmail = document.querySelector('.input--email');
 const editPhone = document.querySelector('.input--phone');
 let editId = 0;
+let editParent = '';
 
 const setInfoData = (response) => {
   infoName.textContent = response.name;
@@ -40,7 +45,7 @@ const deleteItem = (item) => {
   item.remove();
 };
 
-const dowloadData = () => {
+const dowloadEditData = () => {
   const dataFormValue = [];
   const formValueLength = document.forms[1].length;
 
@@ -54,7 +59,41 @@ const dowloadData = () => {
   return dataFormValue;
 };
 
-const sendData = async (formData) => {
+const updateItem = (response) => {
+  for (let i = 0; i < editParent.children.length; i++) {
+    if (i > 3) {
+      break;
+    }
+
+    switch (i) {
+      case 0:
+        editParent.children[0].children[0].textContent = response.login;
+        break;
+      case 1:
+        editParent.children[1].children[0].textContent = response.email;
+        break;
+      case 2:
+        editParent.children[2].children[0].textContent = response.name;
+        break;
+      case 3:
+        editParent.children[3].children[0].textContent = response.surname;
+        break;
+    }
+  }
+};
+
+const closeEditPopUp = () => {
+  const burgerEdit = document.querySelector('.burger--edit');
+
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+  const cancelled = !burgerEdit.dispatchEvent(event);
+};
+
+const sendUpdateData = async (formData) => {
   const url = `/admin/update/${editId}`;
 
   const data = {
@@ -74,7 +113,50 @@ const sendData = async (formData) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
+      if (response.isUpdate) {
+        closeEditPopUp();
+        updateItem(response);
+      }
+    });
+};
+
+const searchFormData = () => {
+  const dataFormValue = [];
+  const searchLogin = document.forms[0].children[0];
+
+  return searchLogin.value;
+};
+
+const showSearchUser = (response) => {
+  const userList = document.querySelector('.adminPanel__listUser');
+  const itemsUserList = userList.children;
+  const loginsResponse = [];
+
+  response.forEach((item) => {
+    loginsResponse.push(item.login);
+  });
+
+  [...itemsUserList].map((item, index) => {
+    const child = itemsUserList[index].children[0];
+    const loginText = child.children[0].textContent;
+
+    if (loginsResponse.includes(loginText)) {
+      item.style.display = 'flex';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+};
+
+const getSearchUser = (login) => {
+  const url = `/admin/search/${login}`;
+
+  fetch(url, {
+    method: 'get',
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      showSearchUser(response);
     });
 };
 
@@ -117,6 +199,7 @@ const sendData = async (formData) => {
     const parent = item.parentElement;
     const id = parent.dataset.id;
     editId = id;
+    editParent = parent;
 
     const url = `/admin/edit/${id}`;
 
@@ -133,6 +216,13 @@ const sendData = async (formData) => {
 submitEditBtn.addEventListener('click', (e) => {
   e.preventDefault();
 
-  const formData = dowloadData();
-  sendData(formData);
+  const formData = dowloadEditData();
+  sendUpdateData(formData);
+});
+
+searchBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const searchLogin = searchFormData();
+  getSearchUser(searchLogin);
 });

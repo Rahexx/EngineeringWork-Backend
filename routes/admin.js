@@ -9,8 +9,6 @@ router.get('/', function (req, res, next) {
   });
 
   findUser.exec((err, data) => {
-    console.log(data);
-
     res.render('admin', { data });
   });
 });
@@ -31,6 +29,26 @@ router.get('/edit/:id', function (req, res, next) {
   });
 });
 
+router.get('/delete/:id', function (req, res, next) {
+  const findUser = User.findByIdAndDelete({ _id: req.params.id });
+
+  findUser.exec((err, data) => {
+    res.json(data);
+  });
+});
+
+router.get('/search/:login', function (req, res, next) {
+  const findUser = User.find({
+    login: { $regex: `^${req.params.login}`, $options: 'i' },
+  }).sort({
+    login: -1,
+  });
+
+  findUser.exec((err, data) => {
+    res.json(data);
+  });
+});
+
 router.post('/update/:id', function (req, res, next) {
   User.findOne({ _id: req.params.id }, (err, data) => {
     if (err) {
@@ -44,16 +62,14 @@ router.post('/update/:id', function (req, res, next) {
     data.login = req.body.login;
 
     data.save((err) => {
-      res.json({ isUpdate: true });
+      res.json({
+        isUpdate: true,
+        name: req.body.name,
+        surname: req.body.surname,
+        email: req.body.email,
+        login: req.body.login,
+      });
     });
-  });
-});
-
-router.get('/delete/:id', function (req, res, next) {
-  const findUser = User.findByIdAndDelete({ _id: req.params.id });
-
-  findUser.exec((err, data) => {
-    res.json(data);
   });
 });
 
