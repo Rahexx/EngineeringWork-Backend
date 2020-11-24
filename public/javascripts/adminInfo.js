@@ -1,4 +1,5 @@
 const infoBtn = document.querySelectorAll('.adminPanel__button--details');
+const deleteBtn = document.querySelectorAll('.adminPanel__button--delete');
 const infoName = document.querySelector('.popUp__detailsInfo--name');
 const infoSurname = document.querySelector('.popUp__detailsInfo--surname');
 const infoLogin = document.querySelector('.popUp__detailsInfo--login');
@@ -8,7 +9,7 @@ const infoPhone = document.querySelector('.popUp__detailsInfo--phone');
 const infoDate = document.querySelector('.popUp__detailsInfo--date');
 const infoSex = document.querySelector('.popUp__detailsInfo--sex');
 
-function setInfoData(response) {
+const setInfoData = (response) => {
   infoName.textContent = response.name;
   infoSurname.textContent = response.surname;
   infoLogin.textContent = response.login;
@@ -17,14 +18,18 @@ function setInfoData(response) {
   infoPhone.textContent = response.phone;
   infoDate.textContent = response.date.substr(0, 10);
   infoSex.textContent = response.sex;
-}
+};
+
+const deleteItem = (item) => {
+  item.remove();
+};
 
 [...infoBtn].map((item) => {
   item.addEventListener('click', () => {
     const parent = item.parentElement;
-    const login = parent.dataset.login;
+    const id = parent.dataset.id;
 
-    const url = `/admin/info/${login}`;
+    const url = `/admin/info/${id}`;
 
     fetch(url, {
       method: 'get',
@@ -32,6 +37,23 @@ function setInfoData(response) {
       .then((response) => response.json())
       .then((response) => {
         setInfoData(response);
+      });
+  });
+});
+
+[...deleteBtn].map((item) => {
+  item.addEventListener('click', () => {
+    const parent = item.parentElement;
+    const id = parent.dataset.id;
+
+    const url = `/admin/delete/${id}`;
+
+    fetch(url, {
+      method: 'get',
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        deleteItem(parent);
       });
   });
 });

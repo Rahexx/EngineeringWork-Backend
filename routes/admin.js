@@ -15,8 +15,16 @@ router.get('/', function (req, res, next) {
   });
 });
 
-router.get('/info/:login', function (req, res, next) {
-  const findUser = User.findOne({ login: req.params.login });
+router.get('/info/:id', function (req, res, next) {
+  const findUser = User.findOne({ _id: req.params.id });
+
+  findUser.exec((err, data) => {
+    res.json(data);
+  });
+});
+
+router.get('/delete/:id', function (req, res, next) {
+  const findUser = User.findByIdAndDelete({ _id: req.params.id });
 
   findUser.exec((err, data) => {
     res.json(data);

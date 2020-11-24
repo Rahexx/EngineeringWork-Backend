@@ -44,7 +44,7 @@ html(lang='pl')
           i.fas.fa-search.adminPanel__icon
       ul.adminPanel__listUser
         each item in data
-          li.adminPanel__listItem(data-value='download', data-login=item.login)
+          li.adminPanel__listItem(data-value='download', data-id=item._id)
             p.adminPanel__info
               | Login: 
               span.adminPanel__login=item.login
