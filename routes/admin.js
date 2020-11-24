@@ -2,14 +2,25 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
 
-/* GET home page. */
+/* Security only for admin user */
+
+router.all('*', (req, res, next) => {
+  if (!req.session.role && req.session.role !== 'admin') {
+    res.redirect('/logIn');
+
+    return;
+  }
+
+  next();
+});
+
 router.get('/', function (req, res, next) {
   const findUser = User.find().sort({
     login: -1,
   });
 
   findUser.exec((err, data) => {
-    res.render('admin', { data });
+    res.render('admin', { role: req.session.role, data });
   });
 });
 
