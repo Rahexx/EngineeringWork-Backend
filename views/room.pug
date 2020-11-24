@@ -1,0 +1,53 @@
+doctype html
+html(lang='pl')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width,initial-scale=1')
+    title Pokój
+    link(href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;900&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+    link(href='/stylesheets/main.e1ba81f63acc95ff784d.css' rel='stylesheet')
+  body.roomContainer.container
+    header.header
+      h1.header__title Pokój
+      p.header__description Poniżej znajdziesz wszystkie potrzebne informacje na temat pokoju
+      i.fas.fa-angle-double-down.header__icon
+    .burger
+      i.fas.fa-bars
+    nav.navigation
+      ul.navigation__list
+        li.nagivation__item
+          a.navigation__link(href='/') Strona główna
+        li.nagivation__item
+          a.navigation__link.navigation__link--active(href='/listRooms') Pokoje
+        li.nagivation__item
+          a.navigation__link(href='./favourite.html') Ulubione
+        li.nagivation__item
+          a.navigation__link(href='./searchUsers.html') Użytkownicy
+        li.nagivation__item
+          a.navigation__link(href='./messages.html') Wiadomości
+        li.nagivation__item
+          a.navigation__link(href='./account.html') Konto
+        if  role === 'admin'
+            li.nagivation__item
+            a.navigation__link(href='/admin') Admin
+        li.nagivation__item
+            if role
+                a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
+            else
+                a.navigation__link.navigation__link--logIn(href='/logIn')
+                    | Zaloguj
+                    | si&eogon;
+    main.room
+      img.room__image(src=`../${data.pathImage}` alt='zdjecie pokoju')
+      .room__textHolder
+        h3.room__title=data.title
+        p.room__descritpion=data.description
+        p.room__price Cena: #{data.price}zł / miesiąc
+        p.room__location Lokalizacja:#{data.location}
+      p.room__contact
+        | Żeby skontaktować się z właścielem kliknij
+        a.room__link(href='#') Tutaj
+    footer.footer
+      p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
+    script(src='/javascripts/main.2706ec3191df15072433.js')

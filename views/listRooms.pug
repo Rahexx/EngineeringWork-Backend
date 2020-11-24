@@ -59,11 +59,11 @@ html(lang='pl')
       ul.searchRooms__list
         each item in data
             li.mainInfo__roomItem.mainInfo__roomItem--item(data-value='download' data-id='1')
-                a.searchRooms__link(href='#')
+                a.searchRooms__link(href=`/listRooms/${item._id}`)
                     img.mainInfo__ImagesRoom.mainInfo__ImagesRoom--rooms(src=item.pathImage alt='zdjecie pokoju')
                 .mainInfo__textHolder
                     h3.mainInfo__roomTitle
-                        a.searchRooms__link.searchRooms__link--header(href='#')=item.title
+                        a.searchRooms__link.searchRooms__link--header(href=`/listRooms/${item._id}`)=item.title
                     p.mainInfo__roomDescritpion=item.description
                     p.mainInfo__price #{item.price}zł / miesiąc
                     p.mainInfo__location=item.location

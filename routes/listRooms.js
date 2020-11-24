@@ -12,4 +12,12 @@ router.get('/', function (req, res, next) {
   });
 });
 
+router.get('/:id', function (req, res, next) {
+  const findRoom = Room.findOne({ _id: req.params.id });
+
+  findRoom.exec((err, data) => {
+    res.render('room', { role: req.session.role, data });
+  });
+});
+
 module.exports = router;
