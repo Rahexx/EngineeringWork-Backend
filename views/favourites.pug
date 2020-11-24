@@ -17,28 +17,32 @@ html(lang='pl')
     nav.navigation
       ul.navigation__list
         li.nagivation__item
-          a.navigation__link(href='./index.html') Strona główna
+          a.navigation__link(href='/') Strona główna
         li.nagivation__item
-          a.navigation__link(href='./listRooms.html') Pokoje
+          a.navigation__link(href='/listRooms') Pokoje
         li.nagivation__item
-          a.navigation__link.navigation__link--active(href='./favourite.html') Ulubione
+          a.navigation__link.navigation__link--active(href='/favourites') Ulubione
         li.nagivation__item
           a.navigation__link(href='./searchUsers.html') Użytkownicy
         li.nagivation__item
           a.navigation__link(href='./messages.html') Wiadomości
         li.nagivation__item
           a.navigation__link(href='./account.html') Konto
+        if  role === 'admin'
+          li.nagivation__item
+            a.navigation__link(href='/admin') Admin
         li.nagivation__item
-          a.navigation__link(href='./admin.html') Admin
-        li.nagivation__item
-          a.navigation__link.navigation__link--logIn(href='./logIn.html')
-            | Zaloguj
-            | się
+          if role
+            a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
+          else
+            a.navigation__link.navigation__link--logIn(href='/logIn')
+              | Zaloguj
+              | si&eogon;
     main.favourites
       h2.favourites__empty Brak ulubionych pokoi
       ul.favourites__list
         each item in data
-            li.favourites__item(data-value='download')
+            li.favourites__item(data-value='download' data-id=item._id)
                 h2.favourites__title=item.title
                 p.favourites__description=item.description
                 p.favourites__comeTo
@@ -49,3 +53,4 @@ html(lang='pl')
       p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
     script(src='/javascripts/main.2706ec3191df15072433.js')
     script(src='/javascripts/favourite.fe3660b21004ae975663.js')
+    script(src='/javascripts/removeFavourite.js')
