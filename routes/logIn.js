@@ -17,7 +17,7 @@ router.post('/', function (req, res, next) {
     findUser.exec((err, data) => {
       if (data.login == loginForm && data.password == passwordForm) {
         req.session.role = data.role;
-        req.session.login = data.login;
+        req.session.id = data._id;
         res.json({ isLog: true });
       } else {
         res.json({ isLog: false });
