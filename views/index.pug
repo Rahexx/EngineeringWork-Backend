@@ -44,42 +44,14 @@ body.container
   main.mainInfo
     h2.mainInfo__title Najnowsze pokoje do wynaj&eogon;cia
     .mainInfo__lastFive
-      .mainInfo__roomItem
-        img.mainInfo__ImagesRoom(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjecie pokoju')
-        .mainInfo__textHolder
-          h3.mainInfo__roomTitle Pok&oacute;j tanio z Wi-fi
-          p.mainInfo__roomDescritpion
-            | &Sacute;wietny pok&oacute;j w centrum miasta i to bardzo tanio. Dost&eogon;p do
-            | kuchni i &lstrok;azienki oraz darmowe Wi-fi
-          p.mainInfo__price 1000z&lstrok; / miesi&aogon;c
-          p.mainInfo__location Bytom, Centrum - 26.08
-      .mainInfo__roomItem
-        img.mainInfo__ImagesRoom(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjecie pokoju')
-        .mainInfo__textHolder
-          h3.mainInfo__roomTitle Pok&oacute;j tanio z Wi-fi
-          p.mainInfo__roomDescritpion
-            | &Sacute;wietny pok&oacute;j w centrum miasta i to bardzo tanio. Dost&eogon;p do
-            | kuchni i &lstrok;azienki oraz darmowe Wi-fi
-          p.mainInfo__price 1000z&lstrok; / miesi&aogon;c
-          p.mainInfo__location Bytom, Centrum - 26.08
-      .mainInfo__roomItem
-        img.mainInfo__ImagesRoom(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjecie pokoju')
-        .mainInfo__textHolder
-          h3.mainInfo__roomTitle Pok&oacute;j tanio z Wi-fi
-          p.mainInfo__roomDescritpion
-            | &Sacute;wietny pok&oacute;j w centrum miasta i to bardzo tanio. Dost&eogon;p do
-            | kuchni i &lstrok;azienki oraz darmowe Wi-fi
-          p.mainInfo__price 1000z&lstrok; / miesi&aogon;c
-          p.mainInfo__location Bytom, Centrum - 26.08
-      .mainInfo__roomItem
-        img.mainInfo__ImagesRoom(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjecie pokoju')
-        .mainInfo__textHolder
-          h3.mainInfo__roomTitle Pok&oacute;j tanio z Wi-fi
-          p.mainInfo__roomDescritpion
-            | &Sacute;wietny pok&oacute;j w centrum miasta i to bardzo tanio. Dost&eogon;p do
-            | kuchni i &lstrok;azienki oraz darmowe Wi-fi
-          p.mainInfo__price 1000z&lstrok; / miesi&aogon;c
-          p.mainInfo__location Bytom, Centrum - 26.08
+      each item in data
+        .mainInfo__roomItem
+          img.mainInfo__ImagesRoom(src=item.pathImage alt='zdjecie pokoju')
+          .mainInfo__textHolder
+            h3.mainInfo__roomTitle=item.title
+            p.mainInfo__roomDescritpion=item.description
+            p.mainInfo__price #{item.price} / miesi&aogon;c
+            p.mainInfo__location=item.location
     h2.mainInfo__title 3 powody dlaczego nale&zdot;y nas wybra&cacute;
     .mainInfo__whyUs
       .mainInfo__reason
