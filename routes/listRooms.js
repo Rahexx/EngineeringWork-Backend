@@ -72,4 +72,14 @@ router.get('/deleteFavourite/:id', function (req, res) {
   res.json({ isDelete: true });
 });
 
+router.get('/showAll/:json', function (req, res) {
+  const findFavourites = Favourite.find({
+    userId: req.session.id,
+  });
+
+  findFavourites.exec((err, data) => {
+    res.json(data);
+  });
+});
+
 module.exports = router;

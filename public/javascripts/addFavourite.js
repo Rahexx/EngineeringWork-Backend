@@ -1,10 +1,16 @@
 const favourite = document.querySelectorAll('.searchRooms__heart');
 
-const addFavourite = (item) => {
+const getId = (item) => {
   const parent = item.parentElement;
   const link = parent.children[0];
   const linkHref = link.href.split('/');
   const id = linkHref[linkHref.length - 1];
+
+  return id;
+};
+
+const addFavourite = (item) => {
+  const id = getId(item);
 
   const url = `/listRooms/addFavourite/${id}`;
 
@@ -12,16 +18,11 @@ const addFavourite = (item) => {
     method: 'get',
   })
     .then((response) => response.json())
-    .then((response) => {
-      console.log(response);
-    });
+    .then((response) => {});
 };
 
 const deleteFavourite = (item) => {
-  const parent = item.parentElement;
-  const link = parent.children[0];
-  const linkHref = link.href.split('/');
-  const id = linkHref[linkHref.length - 1];
+  const id = getId(item);
 
   const url = `/listRooms/deleteFavourite/${id}`;
 
@@ -29,9 +30,25 @@ const deleteFavourite = (item) => {
     method: 'get',
   })
     .then((response) => response.json())
-    .then((response) => {
-      console.log(response);
-    });
+    .then((response) => {});
+};
+
+const checkHearts = (response) => {
+  const hearts = document.querySelectorAll('.searchRooms__heart');
+  const roomIds = [];
+
+  response.forEach((item) => {
+    roomIds.push(item.roomId);
+  });
+
+  [...hearts].map((item) => {
+    const id = getId(item);
+
+    if (roomIds.includes(id)) {
+      item.classList.remove('far');
+      item.classList.add('fas');
+    }
+  });
 };
 
 [...favourite].map((item) => {
@@ -45,15 +62,13 @@ const deleteFavourite = (item) => {
 });
 
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    const url = `/listRooms/showAll/yes`;
+  const url = `/listRooms/showAll/yes`;
 
-    fetch(url, {
-      method: 'get',
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-      });
-  }, 1000);
+  fetch(url, {
+    method: 'get',
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      checkHearts(response);
+    });
 });
