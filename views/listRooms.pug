@@ -43,15 +43,15 @@ html(lang='pl')
     main.searchRooms
       form.searchRooms__form
         .searchRooms__field
-          input.searchRooms__input
+          input.searchRooms__input(name='login')
           label.searchRooms__label(for='login') Miejscowowść:
           p.searchRooms__error Wiadomość errora
         .searchRooms__field
-          input.searchRooms__input(type='number')
+          input.searchRooms__input(name='priceFrom' type='number')
           label.searchRooms__label Cena od:
           p.searchRooms__error Wiadomość errora
         .searchRooms__field
-          input.searchRooms__input(type='number')
+          input.searchRooms__input(name='priceTo' type='number')
           label.searchRooms__label Cena do:
           p.searchRooms__error Wiadomość errora
         .searchRooms__field
@@ -73,3 +73,4 @@ html(lang='pl')
       p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
     script(src='/javascripts/main.2706ec3191df15072433.js')
     script(src='/javascripts/rooms.703c59d84c99183d0156.js')
+    script(src='/javascripts/searchRoom.js')
