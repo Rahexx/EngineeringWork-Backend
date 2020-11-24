@@ -44,7 +44,7 @@ html(lang='pl')
           i.fas.fa-search.adminPanel__icon
       ul.adminPanel__listUser
         each item in data
-          li.adminPanel__listItem(data-value='download')
+          li.adminPanel__listItem(data-value='download', data-login=item.login)
             p.adminPanel__info
               | Login: 
               span.adminPanel__login=item.login
@@ -64,14 +64,30 @@ html(lang='pl')
         .burger.burger--details
           i.fas.fa-times
         h2.popUp__title Informacje o użytkowniku:
-        p.popUp__detailsInfo Login: Rahexx
-        p.popUp__detailsInfo Hasło: P************
-        p.popUp__detailsInfo Imię: Andrzej
-        p.popUp__detailsInfo Nazwisko: Łuszcz
-        p.popUp__detailsInfo Email: andrzejLuszcz@gmail.com
-        p.popUp__detailsInfo Numer telefonu: 602356111
-        p.popUp__detailsInfo Data urodzenia: 11.02.1997r
-        p.popUp__detailsInfo płeć: Mężczyzna
+        p.popUp__detailsInfo
+          | Login: 
+          span.popUp__detailsInfo--login Rahexx
+        p.popUp__detailsInfo
+          | Hasło: 
+          span.popUp__detailsInfo--password P************
+        p.popUp__detailsInfo
+          | Imię: 
+          span.popUp__detailsInfo--name Andrzej
+        p.popUp__detailsInfo
+          | Nazwisko: 
+          span.popUp__detailsInfo--surname Łuszcz
+        p.popUp__detailsInfo
+          | Email: 
+          span.popUp__detailsInfo--email andrzejLuszcz@gmail.com
+        p.popUp__detailsInfo
+          | Numer telefonu: 
+          span.popUp__detailsInfo--phone 602356111
+        p.popUp__detailsInfo
+          | Data urodzenia: 
+          span.popUp__detailsInfo--date 11.02.1997r
+        p.popUp__detailsInfo
+          | Płeć: 
+          span.popUp__detailsInfo--sex Mężczyzna
       .popUp.popUp--edit
         .burger.burger--edit
           i.fas.fa-times
@@ -96,3 +112,4 @@ html(lang='pl')
       p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
     script(src='/javascripts/main.2706ec3191df15072433.js')
     script(src='/javascripts/admin.03669b369d8e8c4cc627.js')
+    script(src='/javascripts/adminInfo.js')

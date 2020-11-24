@@ -15,4 +15,12 @@ router.get('/', function (req, res, next) {
   });
 });
 
+router.get('/info/:login', function (req, res, next) {
+  const findUser = User.findOne({ login: req.params.login });
+
+  findUser.exec((err, data) => {
+    res.json(data);
+  });
+});
+
 module.exports = router;
