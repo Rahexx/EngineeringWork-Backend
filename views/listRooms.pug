@@ -1,0 +1,76 @@
+doctype html
+html(lang='pl')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width,initial-scale=1')
+    title Lista Pokoje
+    link(href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;900&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+    link(href='/stylesheets/main.e1ba81f63acc95ff784d.css' rel='stylesheet')
+  body.roomsContainer.container
+    header.header
+      h1.header__title Lista pokoi
+      p.header__description
+        | Tutaj możesz usunąć znaleźć odpowiedni pokój dla siebie i skontaktować się z
+        | właścielem
+      i.fas.fa-angle-double-down.header__icon
+    .burger
+      i.fas.fa-bars
+    nav.navigation
+      ul.navigation__list
+        li.nagivation__item
+          a.navigation__link(href='/') Strona główna
+        li.nagivation__item
+          a.navigation__link.navigation__link--active(href='/listRooms') Pokoje
+        li.nagivation__item
+          a.navigation__link(href='./favourite.html') Ulubione
+        li.nagivation__item
+          a.navigation__link(href='./searchUsers.html') Użytkownicy
+        li.nagivation__item
+          a.navigation__link(href='./messages.html') Wiadomości
+        li.nagivation__item
+          a.navigation__link(href='./account.html') Konto
+        if  role === 'admin'
+            li.nagivation__item
+            a.navigation__link(href='/admin') Admin
+        li.nagivation__item
+            if role
+                a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
+            else
+                a.navigation__link.navigation__link--logIn(href='/logIn')
+                    | Zaloguj
+                    | si&eogon;
+    main.searchRooms
+      form.searchRooms__form
+        .searchRooms__field
+          input.searchRooms__input
+          label.searchRooms__label(for='login') Miejscowowść:
+          p.searchRooms__error Wiadomość errora
+        .searchRooms__field
+          input.searchRooms__input(type='number')
+          label.searchRooms__label Cena od:
+          p.searchRooms__error Wiadomość errora
+        .searchRooms__field
+          input.searchRooms__input(type='number')
+          label.searchRooms__label Cena do:
+          p.searchRooms__error Wiadomość errora
+        .searchRooms__field
+          input.searchRooms__submit(type='submit' value='Szukaj')
+      ul.searchRooms__list
+        li.mainInfo__roomItem.mainInfo__roomItem--item(data-value='download' data-id='1')
+          a.searchRooms__link(href='./room.html')
+            img.mainInfo__ImagesRoom.mainInfo__ImagesRoom--rooms(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjecie pokoju')
+          .mainInfo__textHolder
+            h3.mainInfo__roomTitle
+              a.searchRooms__link.searchRooms__link--header(href='#') Pokój tanio z Wi-fi
+            p.mainInfo__roomDescritpion
+              | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do
+              | kuchni i łazienki oraz darmowe Wi-fi
+            p.mainInfo__price 1000zł / miesiąc
+            p.mainInfo__location Bytom, Centrum - 26.08
+          if role
+            i.far.fa-heart.searchRooms__heart
+    footer.footer
+      p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
+    script(src='/javascripts/main.2706ec3191df15072433.js')
+    script(src='/javascripts/rooms.703c59d84c99183d0156.js')
