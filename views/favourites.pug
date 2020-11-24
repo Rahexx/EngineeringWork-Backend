@@ -1,0 +1,151 @@
+doctype html
+html(lang='pl')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width,initial-scale=1')
+    title Ulubione
+    link(href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;900&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+    link(href='/stylesheets/main.e1ba81f63acc95ff784d.css' rel='stylesheet')
+  body.favouriteContainer.container
+    header.header
+      h1.header__title Ulubione
+      p.header__description Tutaj znajdziesz wszystkie polubione pokoje przez Ciebie
+      i.fas.fa-angle-double-down.header__icon
+    .burger
+      i.fas.fa-bars
+    nav.navigation
+      ul.navigation__list
+        li.nagivation__item
+          a.navigation__link(href='./index.html') Strona główna
+        li.nagivation__item
+          a.navigation__link(href='./listRooms.html') Pokoje
+        li.nagivation__item
+          a.navigation__link.navigation__link--active(href='./favourite.html') Ulubione
+        li.nagivation__item
+          a.navigation__link(href='./searchUsers.html') Użytkownicy
+        li.nagivation__item
+          a.navigation__link(href='./messages.html') Wiadomości
+        li.nagivation__item
+          a.navigation__link(href='./account.html') Konto
+        li.nagivation__item
+          a.navigation__link(href='./admin.html') Admin
+        li.nagivation__item
+          a.navigation__link.navigation__link--logIn(href='./logIn.html')
+            | Zaloguj
+            | się
+    main.favourites
+      h2.favourites__empty Brak ulubionych pokoi
+      ul.favourites__list
+        li.favourites__item(data-value='download')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='1')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='2')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='3')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='4')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='5')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='6')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='7')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='8')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='9')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='10')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+        li.favourites__item(data-value='download' data-id='11')
+          h2.favourites__title Pokój tanio z Wi-fi
+          p.favourites__description
+            | Świetny pokój w centrum miasta i to bardzo tanio. Dostęp do kuchni i
+            | łazienki oraz darmowe Wi-fi
+          p.favourites__comeTo
+            | Aby przejść do pokoju kliknij
+            a.favourites__link(href='./room.html') Tutaj
+          i.fas.fa-heart.favourites__heart
+    footer.footer
+      p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
+    script(src='/javascripts/main.2706ec3191df15072433.js')
+    script(src='/javascripts/favourite.fe3660b21004ae975663.js')
