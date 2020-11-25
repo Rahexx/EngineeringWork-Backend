@@ -26,10 +26,12 @@ body.container
       if role
         li.nagivation__item
           a.navigation__link(href='/favourites') Ulubione
-      li.nagivation__item
-        a.navigation__link(href='/searchUsers') U&zdot;ytkownicy
-      li.nagivation__item
-        a.navigation__link(href='./messages.html') Wiadomo&sacute;ci
+      if role
+        li.nagivation__item
+          a.navigation__link(href='/searchUsers') U&zdot;ytkownicy
+      if role
+        li.nagivation__item
+          a.navigation__link(href='/messages') Wiadomo&sacute;ci
       li.nagivation__item
         a.navigation__link(href='./account.html') Konto
       if  role === 'admin'
