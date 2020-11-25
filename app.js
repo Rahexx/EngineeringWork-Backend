@@ -19,6 +19,7 @@ var adminRouter = require('./routes/admin');
 var listRoomsRouter = require('./routes/listRooms');
 var favouritesRouter = require('./routes/favourites');
 var searchUserRouter = require('./routes/searchUsers');
+var messagesRouter = require('./routes/messages');
 
 var app = express();
 
@@ -46,6 +47,7 @@ app.use('/admin', adminRouter);
 app.use('/listRooms', listRoomsRouter);
 app.use('/favourites', favouritesRouter);
 app.use('/searchUser', searchUserRouter);
+app.use('/messages', messagesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
