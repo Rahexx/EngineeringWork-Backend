@@ -29,7 +29,7 @@ submitBtn.addEventListener('click', (e) => {
   const parent = e.target.parentElement.parentElement;
   const login = parent.children[0].value;
   console.log(login);
-  const url = `/searchUser/${login}`;
+  const url = `/searchUsers/${login}`;
 
   fetch(url, {
     method: 'get',
