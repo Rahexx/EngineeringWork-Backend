@@ -17,23 +17,8 @@ html(lang='pl')
         h1.userContainer__title Wiadomości
         p.userList__title Lista użytkowników:
         ul.userList
-          li.userList__item Veex
-          li.userList__item Konsti
-          li.userList__item Rahexx
-          li.userList__item Ewka
-          li.userList__item Fraq
-          li.userList__item Nela
-          li.userList__item Harry
-          li.userList__item Virtus
-          li.userList__item Omega
-          li.userList__item Veex
-          li.userList__item Konsti
-          li.userList__item Rahexx
-          li.userList__item Ewka
-          li.userList__item Fraq
-          li.userList__item Nela
-          li.userList__item Harry
-          li.userList__item Virtus
+          each item in logins
+            li.userList__item= item
       .chat
         ul.chat__messages
           li.chat__item.chat__item--user

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Message = require('../models/messages');
+const User = require('../models/user');
 
 router.all('*', (req, res, next) => {
   if (!req.session.role) {
@@ -13,7 +14,42 @@ router.all('*', (req, res, next) => {
 });
 
 router.get('/', function (req, res, next) {
-  res.render('messages', { role: req.session.role });
+  const findMessage = Message.find({
+    $or: [{ idFrom: req.session.id }, { idTo: req.session.id }],
+  });
+
+  findMessage.exec((err, data) => {
+    const dataId = [];
+    const dataLogin = [];
+
+    data.forEach((item) => {
+      if (!dataId.includes(item.idFrom) && item.idFrom !== req.session.id) {
+        dataId.push(item.idFrom);
+      } else if (!dataId.includes(item.idTo) && item.idTo !== req.session.id) {
+        dataId.push(item.idTo);
+      }
+    });
+
+    if (dataId.length > 0) {
+      const findUser = User.find({
+        _id: { $in: dataId },
+      });
+
+      findUser.exec((err, data) => {
+        data.forEach((item) => {
+          dataLogin.push(item.login);
+        });
+
+        console.log(dataLogin);
+
+        res.render('messages', {
+          role: req.session.role,
+          data,
+          logins: dataLogin,
+        });
+      });
+    }
+  });
 });
 
 router.get('/:id', function (req, res, next) {
