@@ -3,6 +3,16 @@ var router = express.Router();
 const Favourite = require('../models/favourites');
 const Room = require('../models/room');
 
+router.all('*', (req, res, next) => {
+  if (!req.session.role) {
+    res.redirect('/logIn');
+
+    return;
+  }
+
+  next();
+});
+
 router.get('/', function (req, res) {
   const findFavourite = Favourite.find({
     userId: req.session.id,

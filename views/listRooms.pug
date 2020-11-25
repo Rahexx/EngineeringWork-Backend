@@ -22,8 +22,9 @@ html(lang='pl')
           a.navigation__link(href='/') Strona główna
         li.nagivation__item
           a.navigation__link.navigation__link--active(href='/listRooms') Pokoje
-        li.nagivation__item
-          a.navigation__link(href='/favourites') Ulubione
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/favourites') Ulubione
         li.nagivation__item
           a.navigation__link(href='./searchUsers.html') Użytkownicy
         li.nagivation__item
