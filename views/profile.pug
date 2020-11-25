@@ -46,7 +46,7 @@ html(lang='pl')
         p.profilePanel__info Imię: #{data.name}
         p.profilePanel__info Nazwisko: #{data.surname}
         p.profilePanel__info Email: #{data.email}
-        a(href='./messages.html')
+        a(href=`/messages/${data._id}`)
           button.profilePanel__message Napisz wiadomość
     footer.footer
       p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
