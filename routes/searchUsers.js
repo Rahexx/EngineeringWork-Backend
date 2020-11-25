@@ -24,4 +24,16 @@ router.get('/', function (req, res, next) {
   });
 });
 
+router.get('/:login', function (req, res, next) {
+  const findUser = User.find({
+    login: { $regex: `^${req.params.login}`, $options: 'i' },
+  }).sort({
+    login: -1,
+  });
+
+  findUser.exec((err, data) => {
+    res.json(data);
+  });
+});
+
 module.exports = router;
