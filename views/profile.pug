@@ -3,14 +3,15 @@ html(lang='pl')
   head
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width,initial-scale=1')
-    title Wyszukaj użytkownika
+    title Konto
     link(href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;900&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
     link(href='/stylesheets/main.e1ba81f63acc95ff784d.css' rel='stylesheet')
-  body.usersContainer.container
+  body.profileContainer.container
     header.header
-      h1.header__title Wyszukiwarka użytkowników
-      p.header__description Tuta możesz znaleźć użytkownika po jego loginie
+      h1.header__title Profil innego użytkownika
+      p.header__description
+        | Tutaj możesz sprawdzić informacje o koncie innego użytkownika oraz napisać do niego
       i.fas.fa-angle-double-down.header__icon
     .burger
       i.fas.fa-bars
@@ -38,20 +39,15 @@ html(lang='pl')
             a.navigation__link.navigation__link--logIn(href='/logIn')
               | Zaloguj
               | si&eogon;
-    main.users
-      h2.users__formTitle Podaj login użytkownika:
-      form.users__searchForm
-        input.users__searchInput(placeholder='Szukaj użytkownika')
-        button.users__search
-          i.fas.fa-search.users__icon
-      ul.users__list
-        each item in data
-            li.users__item(data-value='download')
-                p.users__login=item.login
-                a.users__link(href=`/searchUser/profile/${item._id}`)
-                    i.fas.fa-arrow-right
+    main.profilePanel
+      h2.profilePanel__login=data.login
+      p.profilePanel__title Informacje:
+      .profilePanel__infoHolder
+        p.profilePanel__info Imię: #{data.name}
+        p.profilePanel__info Nazwisko: #{data.surname}
+        p.profilePanel__info Email: #{data.email}
+        a(href='./messages.html')
+          button.profilePanel__message Napisz wiadomość
     footer.footer
       p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
     script(src='/javascripts/main.2706ec3191df15072433.js')
-    script(src='/javascripts/users.12acc5c4bf1249c7ca4b.js')
-    script(src='/javascripts/searchUser.js')

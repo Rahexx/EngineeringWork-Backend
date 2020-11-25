@@ -36,4 +36,14 @@ router.get('/:login', function (req, res, next) {
   });
 });
 
+router.get('/profile/:id', function (req, res, next) {
+  const findUser = User.findOne({
+    _id: req.params.id,
+  });
+
+  findUser.exec((err, data) => {
+    res.render('profile', { role: req.session.role, data });
+  });
+});
+
 module.exports = router;
