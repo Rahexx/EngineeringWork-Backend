@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var config = require('./config');
 const mongoose = require('mongoose');
+// const io = require('socket.io')(server);
 
 mongoose.connect(config.db, { useNewUrlParser: true });
 
@@ -66,3 +67,12 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+
+// io.on('connection', (socket) => {
+//   console.log('a user connected');
+
+//   socket.on('join', (msg) => {
+//     console.log(msg);
+//     socket.emit('message', msg.toUpperCase());
+//   });
+// });

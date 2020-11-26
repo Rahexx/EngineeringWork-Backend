@@ -40,10 +40,9 @@ router.get('/', function (req, res, next) {
           dataLogin.push(item.login);
         });
 
-        console.log(dataLogin);
-
         res.render('messages', {
           role: req.session.role,
+          loginUser: req.session.login,
           data,
           logins: dataLogin,
         });
