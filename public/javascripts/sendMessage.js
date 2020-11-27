@@ -56,6 +56,22 @@ const addNewMessage = (msg) => {
   }
 };
 
+const getConversation = () => {
+  const url = `/messages/getConversation/${currentReceiver}`;
+
+  fetch(url, {
+    method: 'get',
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      const messages = response[0].chat;
+
+      for (let i = 0; i < messages.length; i++) {
+        addNewMessage(messages[i]);
+      }
+    });
+};
+
 form.addEventListener('click', (e) => {
   e.preventDefault();
 
@@ -88,11 +104,16 @@ form.addEventListener('click', (e) => {
     e.target.style.color = 'white';
     listMessages.textContent = '';
     currentReceiver = e.target.textContent;
+    getConversation();
   });
 });
 
 socket.on('message', function (msg) {
-  if (msg.to === loginUser) {
+  if (
+    (msg.to === loginUser && msg.from === currentReceiver) ||
+    (msg.to === currentReceiver && msg.from === loginUser)
+  ) {
+    console.log(msg);
     addNewMessage(msg);
   }
 });

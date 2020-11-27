@@ -52,8 +52,6 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/:id', function (req, res, next) {
-  console.log(req.params.id);
-
   const findMessage = Message.find({
     idFrom: { $in: [req.params.id, req.session.id] },
     idTo: { $in: [req.params.id, req.session.id] },
@@ -71,6 +69,28 @@ router.get('/:id', function (req, res, next) {
     } else {
       res.redirect('/messages');
     }
+  });
+});
+
+router.get('/getConversation/:login', function (req, res, next) {
+  const loginUser = req.session.login;
+  const otherUser = req.params.login;
+  const idUsers = [];
+
+  const findUser = User.find({ login: { $in: [loginUser, otherUser] } });
+
+  findUser.exec((err, data) => {
+    data.forEach((item) => {
+      idUsers.push(item._id);
+    });
+
+    const findConversation = Message.find({
+      $and: [{ idFrom: { $in: idUsers } }, { idTo: { $in: idUsers } }],
+    });
+
+    findConversation.exec((err, data) => {
+      res.json(data);
+    });
   });
 });
 
