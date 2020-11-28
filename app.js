@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var config = require('./config');
 const mongoose = require('mongoose');
-// const io = require('socket.io')(server);
 
 mongoose.connect(config.db, { useNewUrlParser: true });
 
@@ -21,6 +20,7 @@ var listRoomsRouter = require('./routes/listRooms');
 var favouritesRouter = require('./routes/favourites');
 var searchUserRouter = require('./routes/searchUsers');
 var messagesRouter = require('./routes/messages');
+var accountRouter = require('./routes/account');
 
 var app = express();
 
@@ -49,6 +49,7 @@ app.use('/listRooms', listRoomsRouter);
 app.use('/favourites', favouritesRouter);
 app.use('/searchUsers', searchUserRouter);
 app.use('/messages', messagesRouter);
+app.use('/account', accountRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

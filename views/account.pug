@@ -1,0 +1,260 @@
+doctype html
+html(lang='pl')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width,initial-scale=1')
+    title Konto
+    link(href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;900&display=swap' rel='stylesheet')
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+    link(href='/stylesheets/main.e1ba81f63acc95ff784d.css' rel='stylesheet')
+  body.accountContainer.container
+    header.header
+      h1.header__title Konto
+      p.header__description Tutaj możesz sprawdzić informacje o swoim koncie
+      i.fas.fa-angle-double-down.header__icon
+    .burger
+      i.fas.fa-bars
+    nav.navigation
+      ul.navigation__list
+        li.nagivation__item
+          a.navigation__link(href='/') Strona główna
+        li.nagivation__item
+          a.navigation__link(href='/listRooms') Pokoje
+        li.nagivation__item
+          a.navigation__link(href='/favourites') Ulubione
+        li.nagivation__item
+          a.navigation__link(href='/searchUsers') Użytkownicy
+        li.nagivation__item
+          a.navigation__link(href='/messages') Wiadomości
+        li.nagivation__item
+          a.navigation__link.navigation__link--active(href='./account.html') Konto
+        if  role === 'admin'
+          li.nagivation__item
+            a.navigation__link(href='/admin') Admin
+        li.nagivation__item
+          if role
+            a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
+          else
+            a.navigation__link.navigation__link--logIn(href='/logIn')
+              | Zaloguj
+              | si&eogon;
+    main.accountPanel
+      h2.accountPanel__titleDate Twoje dane
+      .accountPanel__infoHolder
+        p.accountPanel__info Login: Rahexx
+        p.accountPanel__info Hasło: P************
+        p.accountPanel__info Imię: Andrzej
+        p.accountPanel__info Nazwisko: Łuszcz
+        p.accountPanel__info Email: andrzejLuszcz@gmail.com
+        p.accountPanel__info Numer telefonu: 602356111
+        p.accountPanel__info Data urodzenia: 11.02.1997r
+        p.accountPanel__info płeć: Mężczyzna
+        p.accountPanel__info Czy jest przypisany do pokoju: Nie
+        p.accountPanel__info Czy wynajmuje pokój: Tak
+      .listInfo
+        h3.listInfo__title Lista pokoi
+        i.fas.fa-caret-up.listInfo__switch(data-switch='false')
+        p.listInfo__add.listInfo__add--room
+          i.fas.fa-plus-circle
+        ul.listRooms
+          li.listRooms__item
+            p.listRooms__id 1
+            img.listRooms__image(src='imgs/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
+            p.listRooms__login
+              a.listRooms__link(href='./profile.html') Veex
+            button.listRooms__btn--delete Usuń z pokoju
+          li.listRooms__item
+            p.listRooms__id 2
+            img.listRooms__image(src='imgs/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
+            p.listRooms__login.listRooms__login--empty Nie ma nikogo przypisanego do pokoju
+            button.listRooms__btn--add Dodaj do pokoju
+          li.listRooms__item
+            p.listRooms__id 3
+            img.listRooms__image(src='imgs/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
+            p.listRooms__login.listRooms__login--empty Nie ma nikogo przypisanego do pokoju
+            button.listRooms__btn--add Dodaj do pokoju
+          li.listRooms__item
+            p.listRooms__id 4
+            img.listRooms__image(src='imgs/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
+            p.listRooms__login.listRooms__login--empty Nie ma nikogo przypisanego do pokoju
+            button.listRooms__btn--add Dodaj do pokoju
+      .listInfo
+        h3.listInfo__title Lista usterek
+        i.fas.fa-caret-up.listInfo__switch(data-switch='false')
+        p.listInfo__add.listInfo__add--fault
+          i.fas.fa-plus-circle
+        ul.listFaults
+          li.listFaults__item
+            p.listFaults__id 1
+            p.listFaults__description
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              | Voluptates asperiores perspiciatis dolorum vitae ab possimus nesciunt rei
+            p.listFaults__status W trakcie
+            button.listFaults__change Zmień status
+          li.listFaults__item
+            p.listFaults__id 2
+            p.listFaults__description
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              | Voluptates asperiores perspiciatis dolorum vitae ab possimus nesciunt rei
+            p.listFaults__status Naprawione
+            button.listFaults__change Zmień status
+          li.listFaults__item
+            p.listFaults__id 3
+            p.listFaults__description
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              | Voluptates asperiores perspiciatis dolorum vitae ab possimus nesciunt rei
+            p.listFaults__status Naprawione
+            button.listFaults__change Zmień status
+          li.listFaults__item
+            p.listFaults__id 4
+            p.listFaults__description
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              | Voluptates asperiores perspiciatis dolorum vitae ab possimus nesciunt rei
+            p.listFaults__status Naprawione
+            button.listFaults__change Zmień status
+      .listInfo
+        h3.listInfo__title Lista umów
+        i.fas.fa-caret-up.listInfo__switch(data-switch='false')
+        p.listInfo__add.listInfo__add--agreement
+          i.fas.fa-plus-circle
+        ul.listAgreements
+          li.listAgreements__item
+            p.listAgreements__id 1
+            p.listAgreements__name
+              a.listAgreements__link(href='#') nazwa__umowy.pdf
+            p.listAgreements__date 10/20
+          li.listAgreements__item
+            p.listAgreements__id 2
+            p.listAgreements__name
+              a.listAgreements__link(href='#') nazwa__umowy.pdf
+            p.listAgreements__date 10/20
+          li.listAgreements__item
+            p.listAgreements__id 3
+            p.listAgreements__name
+              a.listAgreements__link(href='#') nazwa__umowy.pdf
+            p.listAgreements__date 10/20
+          li.listAgreements__item
+            p.listAgreements__id 4
+            p.listAgreements__name
+              a.listAgreements__link(href='#') nazwa__umowy.pdf
+            p.listAgreements__date 10/20
+      .listInfo
+        h3.listInfo__title Lista rozliczeń
+        i.fas.fa-caret-up.listInfo__switch(data-switch='false')
+        p.listInfo__add.listInfo__add--settlement
+          i.fas.fa-plus-circle
+        ul.listSettlements
+          li.listSettlements__item
+            p.listSettlements__id 1
+            p.listSettlements__cost 1233.00zł
+            p.listSettlements__deadline 26.11.2020r
+            p.listSettlements__status Nie opłacone
+            p.listSettlements__login Veex
+            p.listSettlements__delete
+              i.fas.fa-times-circle
+          li.listSettlements__item
+            p.listSettlements__id 2
+            p.listSettlements__cost 1233.00zł
+            p.listSettlements__deadline 26.10.2020r
+            p.listSettlements__status Nie opłacone
+            p.listSettlements__login Veex
+            p.listSettlements__delete
+              i.fas.fa-times-circle
+          li.listSettlements__item
+            p.listSettlements__id 3
+            p.listSettlements__cost 1233.00zł
+            p.listSettlements__deadline 26.10.2020r
+            p.listSettlements__status Nie opłacone
+            p.listSettlements__login Veex
+            p.listSettlements__delete
+              i.fas.fa-times-circle
+          li.listSettlements__item
+            p.listSettlements__id 4
+            p.listSettlements__cost 1233.00zł
+            p.listSettlements__deadline 26.10.2020r
+            p.listSettlements__status Nie opłacone
+            p.listSettlements__login Veex
+            p.listSettlements__delete
+              i.fas.fa-times-circle
+      button.accountPanel__delete Usuń konto
+      .addRoom
+        i.fas.fa-times.addRoom__exit
+        h2.addRoom__title Dodaj nowy pokój
+        form.addRoom__form
+          .addRoom__field
+            label.addRoom__label Nazwa ogłoszenia
+            input.addRoom__input(placeholder='Podaj nazwę ogłoszenia')
+          .addRoom__field
+            label.addRoom__label Opis
+            input.addRoom__input.addRoom__input--description(placeholder='Dodaj opis ogłoszenia')
+          .addRoom__field
+            label.addRoom__label Kwota za miesiąc
+            input.addRoom__input(type='number' placeholder='Podaj kwotę')
+          .addRoom__field
+            label.addRoom__label Podaj lokalizacje pokoju
+            input.addRoom__input(placeholder='Podaj lokalizacje')
+          .addRoom__field
+            label.addRoom__label Dodaj zdjęcie pokoju
+            input.addRoom__input.addRoom__input--file(type='file')
+          .addRoom__field
+            input.addRoom__submit(type='submit' value='Wyślij')
+      .addFault
+        i.fas.fa-times.addFault__exit
+        h2.addFault__title Dodaj nową usterkę
+        form.addFault__form
+          .addFault__field
+            label.addFault__label Opis usterki
+            input.addFault__input(placeholder='Podaj opis usterki')
+          .addFault__field
+            label.addFault__label Status
+            input.addFault__input.addFault__input--description(value='W trakcie' disabled='disabled')
+          .addFault__field
+            input.addFault__submit(type='submit' value='Wyślij')
+      .addAgreement
+        i.fas.fa-times.addAgreement__exit
+        h2.addAgreement__title Dodaj nową umowę
+        form.addAgreement__form
+          .addAgreement__field
+            label.addAgreement__label Nazwa umowy
+            input.addAgreement__input(placeholder='Podaj nazwę umowy')
+          .addAgreement__field
+            label.addAgreement__label
+              | podaj za jaki termin w formacie
+              | miesiąc/rok
+            input.addAgreement__input.addFault__input--description(placeholder='Podaj termin')
+          .addAgreement__field
+            label.addAgreement__label Dodaj umowę
+            input.addAgreement__input.addAgreement__input--file(type='file')
+          .addAgreement__field
+            input.addAgreement__submit(type='submit' value='Wyślij')
+      .addSettlement
+        i.fas.fa-times.addSettlement__exit
+        h2.addSettlement__title Dodaj nowe rozliczenie
+        form.addSettlement__form
+          .addSettlement__field
+            label.addSettlement__label Kwota rozliczenia
+            input.addSettlement__input(placeholder='Podaj kwotę rozliczenia')
+          .addSettlement__field
+            label.addSettlement__label Podaj termin płatności
+            input.addSettlement__input(type='date')
+          .addSettlement__field
+            label.addSettlement__label Status
+            input.addSettlement__input(value='Nie opłacone' disabled='disabled')
+          .addSettlement__field
+            label.addSettlement__label Podaj login użytkownika
+            input.addSettlement__input(placeholder='Podaj login')
+          .addSettlement__field
+            input.addSettlement__submit(type='submit' value='Wyślij')
+      .addUserRoom
+        i.fas.fa-times.addUserRoom__exit
+        h2.addUserRoom__title Przypisz użytkownika do pokoju
+        form.addUserRoom__form
+          .addUserRoom__field
+            label.addUserRoom__label Podaj login użytkownika
+            input.addUserRoom__input(placeholder='Podaj login')
+          .addUserRoom__field
+            input.addUserRoom__submit(type='submit' value='Dodaj')
+    footer.footer
+      p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
+    script(src='/javascripts/main.2706ec3191df15072433.js')
+    script(src='/javascripts/account.ee1baf85847123e98160.js')
