@@ -41,16 +41,14 @@ html(lang='pl')
     main.accountPanel
       h2.accountPanel__titleDate Twoje dane
       .accountPanel__infoHolder
-        p.accountPanel__info Login: Rahexx
-        p.accountPanel__info Hasło: P************
-        p.accountPanel__info Imię: Andrzej
-        p.accountPanel__info Nazwisko: Łuszcz
-        p.accountPanel__info Email: andrzejLuszcz@gmail.com
-        p.accountPanel__info Numer telefonu: 602356111
-        p.accountPanel__info Data urodzenia: 11.02.1997r
-        p.accountPanel__info płeć: Mężczyzna
-        p.accountPanel__info Czy jest przypisany do pokoju: Nie
-        p.accountPanel__info Czy wynajmuje pokój: Tak
+        p.accountPanel__info Login: #{data.login}
+        p.accountPanel__info Hasło: #{data.password}
+        p.accountPanel__info Imię: #{data.name}
+        p.accountPanel__info Nazwisko: #{data.surname}
+        p.accountPanel__info Email: #{data.email}
+        p.accountPanel__info Numer telefonu: #{data.phone}
+        p.accountPanel__info Data urodzenia: #{formatDate}
+        p.accountPanel__info płeć: #{data.sex}
       .listInfo
         h3.listInfo__title Lista pokoi
         i.fas.fa-caret-up.listInfo__switch(data-switch='false')

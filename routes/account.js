@@ -13,13 +13,14 @@ router.all('*', (req, res, next) => {
 });
 
 router.get('/', function (req, res) {
-  const findUser = User.find({
+  const findUser = User.findOne({
     _id: req.session.id,
   });
 
   findUser.exec((err, data) => {
-    console.log(data);
-    res.render('account', { data });
+    const newDate = new Date(data.date);
+    const formatDate = newDate.toLocaleDateString('en-US');
+    res.render('account', { data, formatDate });
   });
 });
 
