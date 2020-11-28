@@ -27,7 +27,7 @@ html(lang='pl')
         li.nagivation__item
           a.navigation__link(href='/messages') Wiadomości
         li.nagivation__item
-          a.navigation__link.navigation__link--active(href='./account.html') Konto
+          a.navigation__link.navigation__link--active(href='/account') Konto
         if  role === 'admin'
           li.nagivation__item
             a.navigation__link(href='/admin') Admin
@@ -174,7 +174,6 @@ html(lang='pl')
             p.listSettlements__login Veex
             p.listSettlements__delete
               i.fas.fa-times-circle
-      button.accountPanel__delete Usuń konto
       .addRoom
         i.fas.fa-times.addRoom__exit
         h2.addRoom__title Dodaj nowy pokój

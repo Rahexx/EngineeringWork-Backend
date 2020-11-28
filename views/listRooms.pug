@@ -25,12 +25,15 @@ html(lang='pl')
         if role
           li.nagivation__item
             a.navigation__link(href='/favourites') Ulubione
-        li.nagivation__item
-          a.navigation__link(href='/searchUsers') Użytkownicy
-        li.nagivation__item
-          a.navigation__link(href='/messages') Wiadomości
-        li.nagivation__item
-          a.navigation__link(href='./account.html') Konto
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/searchUsers') Użytkownicy
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/messages') Wiadomości
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/account') Konto
         if  role === 'admin'
             li.nagivation__item
             a.navigation__link(href='/admin') Admin
