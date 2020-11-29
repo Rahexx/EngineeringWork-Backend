@@ -1,4 +1,5 @@
 const submit = document.querySelector('.signHolder__button--submit');
+const loginInput = document.querySelector('.signHolder__input--login');
 let degree = 10;
 
 const cleanErrors = () => {
@@ -123,6 +124,19 @@ const showLoadIcon = () => {
   spinSpinner();
 };
 
+const checkUser = async (login) => {
+  const url = `/login/checkLogin/${login}`;
+
+  const response = await fetch(url);
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    return Promise.reject(`Http error: ${response.status}`);
+  }
+};
+
 submit.addEventListener('click', (e) => {
   e.preventDefault();
 
@@ -130,4 +144,23 @@ submit.addEventListener('click', (e) => {
   showLoadIcon();
   const formData = dowloadData();
   sendData(formData);
+});
+
+loginInput.addEventListener('input', () => {
+  checkUser(loginInput.value)
+    .then((response) => {
+      if (response) {
+        const errorLogin = document.querySelector('.login');
+        loginInput.style.border = '1px solid red';
+        errorLogin.style.display = 'block';
+        errorLogin.textContent = 'Login zajęty';
+      } else {
+        const errorLogin = document.querySelector('.login');
+        loginInput.style.border = '1px solid #adadad';
+        errorLogin.style.display = 'none';
+        errorLogin.textContent =
+          'Login musi mieć minimum 3 litery i nie może zawierać znaków specjalnych';
+      }
+    })
+    .catch((error) => console.log(error));
 });
