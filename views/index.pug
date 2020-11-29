@@ -32,8 +32,9 @@ body.container
       if role
         li.nagivation__item
           a.navigation__link(href='/messages') Wiadomo&sacute;ci
-      li.nagivation__item
-        a.navigation__link(href='/account') Konto
+      if role
+        li.nagivation__item
+          a.navigation__link(href='/account') Konto
       if  role === 'admin'
         li.nagivation__item
           a.navigation__link(href='/admin') Admin
