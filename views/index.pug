@@ -15,36 +15,68 @@ body.container
     i.fas.fa-angle-double-down.header__icon
   .burger
     i.fas.fa-bars
-  nav.navigation
-    ul.navigation__list
-      li.nagivation__item
-        a.navigation__link.navigation__link--active(href='/')
-          | Strona
-          | g&lstrok;&oacute;wna
-      li.nagivation__item
-        a.navigation__link(href='/listRooms') Pokoje
-      if role
+  if role
+    nav.navigation
+      ul.navigation__list
         li.nagivation__item
-          a.navigation__link(href='/favourites') Ulubione
-      if role
+          a.navigation__link.navigation__link--active(href='/')
+            | Strona
+            | g&lstrok;&oacute;wna
         li.nagivation__item
-          a.navigation__link(href='/searchUsers') U&zdot;ytkownicy
-      if role
-        li.nagivation__item
-          a.navigation__link(href='/messages') Wiadomo&sacute;ci
-      if role
-        li.nagivation__item
-          a.navigation__link(href='/account') Konto
-      if  role === 'admin'
-        li.nagivation__item
-          a.navigation__link(href='/admin') Admin
-      li.nagivation__item
+          a.navigation__link(href='/listRooms') Pokoje
         if role
-          a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
-        else
-          a.navigation__link.navigation__link--logIn(href='/logIn')
-            | Zaloguj
-            | si&eogon;
+          li.nagivation__item
+            a.navigation__link(href='/favourites') Ulubione
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/searchUsers') U&zdot;ytkownicy
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/messages') Wiadomo&sacute;ci
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/account') Konto
+        if  role === 'admin'
+          li.nagivation__item
+            a.navigation__link(href='/admin') Admin
+        li.nagivation__item
+          if role
+            a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
+          else
+            a.navigation__link.navigation__link--logIn(href='/logIn')
+              | Zaloguj
+              | si&eogon;
+  else
+    nav.navigation(style='padding-left: 50vw')
+      ul.navigation__list
+        li.nagivation__item
+          a.navigation__link.navigation__link--active(href='/')
+            | Strona
+            | g&lstrok;&oacute;wna
+        li.nagivation__item
+          a.navigation__link(href='/listRooms') Pokoje
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/favourites') Ulubione
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/searchUsers') U&zdot;ytkownicy
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/messages') Wiadomo&sacute;ci
+        if role
+          li.nagivation__item
+            a.navigation__link(href='/account') Konto
+        if  role === 'admin'
+          li.nagivation__item
+            a.navigation__link(href='/admin') Admin
+        li.nagivation__item
+          if role
+            a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
+          else
+            a.navigation__link.navigation__link--logIn(href='/logIn')
+              | Zaloguj
+              | si&eogon;
   main.mainInfo
     h2.mainInfo__title Najnowsze pokoje do wynaj&eogon;cia
     .mainInfo__lastFive

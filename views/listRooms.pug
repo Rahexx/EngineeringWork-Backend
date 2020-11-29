@@ -16,34 +16,68 @@ html(lang='pl')
       i.fas.fa-angle-double-down.header__icon
     .burger
       i.fas.fa-bars
-    nav.navigation
-      ul.navigation__list
-        li.nagivation__item
-          a.navigation__link(href='/') Strona główna
-        li.nagivation__item
-          a.navigation__link.navigation__link--active(href='/listRooms') Pokoje
-        if role
+    if role
+      nav.navigation
+        ul.navigation__list
           li.nagivation__item
-            a.navigation__link(href='/favourites') Ulubione
-        if role
+            a.navigation__link.navigation__link--active(href='/')
+              | Strona
+              | g&lstrok;&oacute;wna
           li.nagivation__item
-            a.navigation__link(href='/searchUsers') Użytkownicy
-        if role
-          li.nagivation__item
-            a.navigation__link(href='/messages') Wiadomości
-        if role
-          li.nagivation__item
-            a.navigation__link(href='/account') Konto
-        if  role === 'admin'
+            a.navigation__link(href='/listRooms') Pokoje
+          if role
             li.nagivation__item
-            a.navigation__link(href='/admin') Admin
-        li.nagivation__item
+              a.navigation__link(href='/favourites') Ulubione
+          if role
+            li.nagivation__item
+              a.navigation__link(href='/searchUsers') U&zdot;ytkownicy
+          if role
+            li.nagivation__item
+              a.navigation__link(href='/messages') Wiadomo&sacute;ci
+          if role
+            li.nagivation__item
+              a.navigation__link(href='/account') Konto
+          if  role === 'admin'
+            li.nagivation__item
+              a.navigation__link(href='/admin') Admin
+          li.nagivation__item
             if role
-                a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
+              a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
             else
-                a.navigation__link.navigation__link--logIn(href='/logIn')
-                    | Zaloguj
-                    | si&eogon;
+              a.navigation__link.navigation__link--logIn(href='/logIn')
+                | Zaloguj
+                | si&eogon;
+    else
+      nav.navigation(style='padding-left: 50vw')
+        ul.navigation__list
+          li.nagivation__item
+            a.navigation__link.navigation__link--active(href='/')
+              | Strona
+              | g&lstrok;&oacute;wna
+          li.nagivation__item
+            a.navigation__link(href='/listRooms') Pokoje
+          if role
+            li.nagivation__item
+              a.navigation__link(href='/favourites') Ulubione
+          if role
+            li.nagivation__item
+              a.navigation__link(href='/searchUsers') U&zdot;ytkownicy
+          if role
+            li.nagivation__item
+              a.navigation__link(href='/messages') Wiadomo&sacute;ci
+          if role
+            li.nagivation__item
+              a.navigation__link(href='/account') Konto
+          if  role === 'admin'
+            li.nagivation__item
+              a.navigation__link(href='/admin') Admin
+          li.nagivation__item
+            if role
+              a.navigation__link.navigation__link--logIn(href='/logOut') Wyloguj
+            else
+              a.navigation__link.navigation__link--logIn(href='/logIn')
+                | Zaloguj
+                | si&eogon;
     main.searchRooms
       form.searchRooms__form
         .searchRooms__field
