@@ -3,6 +3,7 @@ var router = express.Router();
 const User = require('../models/user');
 const Fault = require('../models/faults');
 const Room = require('../models/room');
+const Settlement = require('../models/settlement');
 
 router.all('*', (req, res, next) => {
   if (!req.session.role) {
@@ -89,6 +90,19 @@ router.post('/addFault/', function (req, res) {
 
       newFault.save();
     });
+  });
+});
+
+router.get('/settlement', function (req, res) {
+  const findSettlement = Settlement.find({
+    $or: [
+      { tenantLogin: req.session.login },
+      { ownerLogin: req.session.login },
+    ],
+  });
+
+  findSettlement.exec((err, data) => {
+    res.json(data);
   });
 });
 

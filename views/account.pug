@@ -22,13 +22,13 @@ html(lang='pl')
         li.nagivation__item
           a.navigation__link(href='/listRooms') Pokoje
         li.nagivation__item
-          a.navigation__link(href='/favourites') Ulubione
+          a.navigation__link.navigation__link--active(href='/favourites') Ulubione
         li.nagivation__item
           a.navigation__link(href='/searchUsers') Użytkownicy
         li.nagivation__item
           a.navigation__link(href='/messages') Wiadomości
         li.nagivation__item
-          a.navigation__link.navigation__link--active(href='/account') Konto
+          a.navigation__link(href='/account') Konto
         if  role === 'admin'
           li.nagivation__item
             a.navigation__link(href='/admin') Admin
@@ -118,7 +118,7 @@ html(lang='pl')
             p.listAgreements__date 10/20
       .listInfo
         h3.listInfo__title Lista rozliczeń
-        i.fas.fa-caret-up.listInfo__switch(data-switch='false')
+        i.fas.fa-caret-up.listInfo__switch.listInfo__Settlement(data-switch='false')
         p.listInfo__add.listInfo__add--settlement
           i.fas.fa-plus-circle
         ul.listSettlements
@@ -126,32 +126,8 @@ html(lang='pl')
             p.listSettlements__id 1
             p.listSettlements__cost 1233.00zł
             p.listSettlements__deadline 26.11.2020r
-            p.listSettlements__status Nie opłacone
             p.listSettlements__login Veex
-            p.listSettlements__delete
-              i.fas.fa-times-circle
-          li.listSettlements__item
-            p.listSettlements__id 2
-            p.listSettlements__cost 1233.00zł
-            p.listSettlements__deadline 26.10.2020r
-            p.listSettlements__status Nie opłacone
-            p.listSettlements__login Veex
-            p.listSettlements__delete
-              i.fas.fa-times-circle
-          li.listSettlements__item
-            p.listSettlements__id 3
-            p.listSettlements__cost 1233.00zł
-            p.listSettlements__deadline 26.10.2020r
-            p.listSettlements__status Nie opłacone
-            p.listSettlements__login Veex
-            p.listSettlements__delete
-              i.fas.fa-times-circle
-          li.listSettlements__item
-            p.listSettlements__id 4
-            p.listSettlements__cost 1233.00zł
-            p.listSettlements__deadline 26.10.2020r
-            p.listSettlements__status Nie opłacone
-            p.listSettlements__login Veex
+            p.listSettlements__login.listSettlements__login--owner Owner
             p.listSettlements__delete
               i.fas.fa-times-circle
       .addRoom
@@ -219,9 +195,6 @@ html(lang='pl')
             label.addSettlement__label Podaj termin płatności
             input.addSettlement__input(type='date')
           .addSettlement__field
-            label.addSettlement__label Status
-            input.addSettlement__input(value='Nie opłacone' disabled='disabled')
-          .addSettlement__field
             label.addSettlement__label Podaj login użytkownika
             input.addSettlement__input(placeholder='Podaj login')
           .addSettlement__field
@@ -240,3 +213,4 @@ html(lang='pl')
     script(src='/javascripts/main.2706ec3191df15072433.js')
     script(src='/javascripts/account.da5ef0ae6e834cf080d3.js')
     script(src='/javascripts/searchFault.js')
+    script(src='/javascripts/searchSettlement.js')
