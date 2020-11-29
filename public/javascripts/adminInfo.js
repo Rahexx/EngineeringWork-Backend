@@ -3,7 +3,7 @@ const infoBtn = document.querySelectorAll('.adminPanel__button--details');
 const editBtn = document.querySelectorAll('.adminPanel__button--edit');
 const deleteBtn = document.querySelectorAll('.adminPanel__button--delete');
 const submitEditBtn = document.querySelector('.submitEdit');
-const searchBtn = document.querySelector('.adminPanel__search');
+const searchForm = document.querySelector('.adminPanel__searchForm');
 
 // elements to change value when it's necessary
 const infoName = document.querySelector('.popUp__detailsInfo--name');
@@ -220,7 +220,7 @@ submitEditBtn.addEventListener('click', (e) => {
   sendUpdateData(formData);
 });
 
-searchBtn.addEventListener('click', (e) => {
+searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const searchLogin = searchFormData();

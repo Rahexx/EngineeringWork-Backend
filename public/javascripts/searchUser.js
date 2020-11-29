@@ -23,11 +23,10 @@ const showSearchUser = (response) => {
   });
 };
 
-submitBtn.addEventListener('click', (e) => {
+submitForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const parent = e.target.parentElement.parentElement;
-  const login = parent.children[0].value;
+  const login = submitForm.children[0].value;
   console.log(login);
   const url = `/searchUsers/${login}`;
 
