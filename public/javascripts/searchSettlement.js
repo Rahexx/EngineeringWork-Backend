@@ -1,6 +1,68 @@
 const showSeetlements = document.querySelector('.listInfo__Settlement');
 const listSeetlements = document.querySelector('.listSettlements');
 
+const closeList = (item, isRotate = true) => {
+  item.parentElement.children[1].dataset.switch = 'false';
+  const parent = item.parentElement;
+  const tl = gsap.timeline();
+
+  if (isRotate) {
+    tl.to(parent, {
+      height: '8vh',
+      duration: 1,
+    }).to(item, { rotate: 360, duration: 0.3 });
+  } else {
+    gsap.to(parent, {
+      height: '8vh',
+      duration: 1,
+    });
+  }
+};
+
+const deleteSettlement = (parentElement) => {
+  const settlementId = parentElement.parentElement.dataset.id;
+  const url = `/account/settlement/delete/${settlementId}`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((response) => {});
+};
+
+const removeItem = (e) => {
+  const parent = e.target.parentElement.parentElement;
+  const pageWidth = document.body.offsetWidth;
+  parent.style.minHeight = '0';
+  const tl = gsap.timeline();
+
+  tl.to(parent, { x: pageWidth, duration: 1 })
+    .to(parent, {
+      height: 0,
+      margin: 0,
+      padding: 0,
+      duration: 0.5,
+    })
+    .to(parent, { display: 'none' });
+
+  setTimeout(() => {
+    closeList(parent.parentElement, false);
+  }, 1500);
+
+  setTimeout(() => {
+    parent.remove();
+  }, 1500);
+};
+
+const addEventDeleteBtn = () => {
+  const deleteBtns = document.querySelectorAll('.listSettlements__delete');
+
+  [...deleteBtns].map((item) => {
+    item.addEventListener('click', (e) => {
+      deleteSettlement(e.target.parentElement);
+      removeItem(e);
+    });
+  });
+};
+
 const emptyMessageSettlement = () => {
   const li = document.createElement('li');
   const p = document.createElement('p');
@@ -68,10 +130,10 @@ const addSettlements = (response) => {
   });
 
   listSeetlements.appendChild(fragment);
-  //   addEventStatusBtn();
+  addEventDeleteBtn();
 };
 
-showSeetlements.addEventListener('click', () => {
+showSeetlements.addEventListener('click', (e) => {
   const url = `/account/settlement`;
 
   fetch(url, {

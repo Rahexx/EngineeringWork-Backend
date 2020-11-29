@@ -106,4 +106,14 @@ router.get('/settlement', function (req, res) {
   });
 });
 
+router.get('/settlement/delete/:id', function (req, res) {
+  const idSettlement = req.params.id;
+
+  const findSettlement = Settlement.findByIdAndDelete(idSettlement, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+});
+
 module.exports = router;
