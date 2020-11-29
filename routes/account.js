@@ -116,4 +116,15 @@ router.get('/settlement/delete/:id', function (req, res) {
   });
 });
 
+router.post('/addSettlement/', function (req, res) {
+  const newSettlement = new Settlement({
+    price: req.body.cost,
+    date: req.body.date,
+    tenantLogin: req.body.login,
+    ownerLogin: req.session.login,
+  });
+
+  newSettlement.save();
+});
+
 module.exports = router;

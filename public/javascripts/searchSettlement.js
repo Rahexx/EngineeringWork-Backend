@@ -1,5 +1,50 @@
 const showSeetlements = document.querySelector('.listInfo__Settlement');
 const listSeetlements = document.querySelector('.listSettlements');
+const addSettlementForm = document.querySelector('.addSettlement__form');
+
+const closeFormSettlement = () => {
+  const close = document.querySelector('.addSettlement__exit');
+
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+  const cancelled = !close.dispatchEvent(event);
+};
+
+const clearInputsSettlement = () => {
+  const cost = document.querySelectorAll('.addSettlement__input')[0];
+  const date = document.querySelectorAll('.addSettlement__input')[1];
+  const login = document.querySelectorAll('.addSettlement__input')[2];
+
+  cost.value = '';
+  date.value = '';
+  login.value = '';
+};
+
+const sendNewSettlement = (cost, date, login) => {
+  const url = '/account/addSettlement/';
+
+  const data = {
+    cost,
+    date,
+    login,
+  };
+
+  fetch(url, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((response) => {});
+
+  closeFormSettlement();
+  clearInputsSettlement();
+};
 
 const closeList = (item, isRotate = true) => {
   item.parentElement.children[1].dataset.switch = 'false';
@@ -147,4 +192,69 @@ showSeetlements.addEventListener('click', (e) => {
         addSettlements(response);
       }
     });
+});
+
+addSettlementForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const cost = document.querySelectorAll('.addSettlement__input')[0];
+  const date = document.querySelectorAll('.addSettlement__input')[1];
+  const login = document.querySelectorAll('.addSettlement__input')[2];
+  let costValid = false;
+  let dateValid = false;
+
+  if (!cost.value) {
+    const error = document.querySelectorAll('.addSettlement__error')[0];
+
+    cost.style.border = '1px solid red';
+    error.style.opacity = '1';
+
+    costValid = false;
+  } else {
+    const error = document.querySelectorAll('.addSettlement__error')[1];
+
+    cost.style.border = '1px solid #adadad';
+    error.style.opacity = '0';
+
+    costValid = true;
+  }
+
+  if (!date.value) {
+    const error = document.querySelectorAll('.addSettlement__error')[1];
+
+    date.style.border = '1px solid red';
+    error.style.opacity = '1';
+
+    dateValid = false;
+  } else {
+    const error = document.querySelectorAll('.addSettlement__error')[1];
+
+    date.style.border = '1px solid #adadad';
+    error.style.opacity = '0';
+
+    dateValid = true;
+  }
+
+  if (login.value) {
+    checkUser(login.value)
+      .then((response) => {
+        const login = document.querySelectorAll('.addSettlement__input')[2];
+        const error = document.querySelectorAll('.addSettlement__error')[2];
+        if (response != null) {
+          login.style.border = '1px solid #adadad';
+          error.style.opacity = '0';
+
+          if (costValid && dateValid) {
+            sendNewSettlement(cost.value, date.value, login.value);
+          }
+        } else {
+          loginWrong(login, error);
+        }
+      })
+      .catch((error) => console.log(error));
+  } else {
+    const login = document.querySelectorAll('.addSettlement__input')[2];
+    const error = document.querySelectorAll('.addSettlement__error')[2];
+
+    loginWrong(login, error);
+  }
 });

@@ -191,12 +191,15 @@ html(lang='pl')
           .addSettlement__field
             label.addSettlement__label Kwota rozliczenia
             input.addSettlement__input(placeholder='Podaj kwotę rozliczenia')
+            p.addFault__error.addSettlement__error Podaj kwotę
           .addSettlement__field
             label.addSettlement__label Podaj termin płatności
             input.addSettlement__input(type='date')
+            p.addFault__error.addSettlement__error Podaj datę
           .addSettlement__field
             label.addSettlement__label Podaj login użytkownika
             input.addSettlement__input(placeholder='Podaj login')
+            p.addFault__error.addSettlement__error Zły login
           .addSettlement__field
             input.addSettlement__submit(type='submit' value='Wyślij')
       .addUserRoom

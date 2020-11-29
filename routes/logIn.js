@@ -12,7 +12,6 @@ router.get('/checkLogin/:login', (req, res) => {
   });
 
   findUser.exec((err, data) => {
-    console.log(data);
     res.json(data);
   });
 });

@@ -105,10 +105,7 @@ const checkUser = async (login) => {
   }
 };
 
-const loginWrong = () => {
-  const login = document.querySelectorAll('.addFault__input')[1];
-  const error = document.querySelector('.addFault__error');
-
+const loginWrong = (login, error) => {
   login.style.border = '1px solid red';
   error.style.opacity = '1';
 };
@@ -175,13 +172,23 @@ addFaultForm.addEventListener('submit', (e) => {
   const description = document.querySelectorAll('.addFault__input')[0].value;
   const login = document.querySelectorAll('.addFault__input')[1].value;
 
-  checkUser(login)
-    .then((response) => {
-      if (response != null) {
-        addNewFault(description, login);
-      } else {
-        loginWrong();
-      }
-    })
-    .catch((error) => console.log(error));
+  if (login) {
+    checkUser(login)
+      .then((response) => {
+        if (response != null) {
+          addNewFault(description, login);
+        } else {
+          const login = document.querySelectorAll('.addFault__input')[1];
+          const error = document.querySelector('.addFault__error');
+
+          loginWrong(login, error);
+        }
+      })
+      .catch((error) => console.log(error));
+  } else {
+    const login = document.querySelectorAll('.addFault__input')[1];
+    const error = document.querySelector('.addFault__error');
+
+    loginWrong(login, error);
+  }
 });
