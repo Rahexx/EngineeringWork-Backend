@@ -56,9 +56,6 @@ router.get('/addFavourite/:id', function (req, res) {
 });
 
 router.get('/deleteFavourite/:id', function (req, res) {
-  console.log(req.params.id);
-  console.log(req.session.id);
-
   const findFavourite = Favourite.deleteOne(
     {
       roomId: req.params.id,

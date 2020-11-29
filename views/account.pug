@@ -78,38 +78,10 @@ html(lang='pl')
             button.listRooms__btn--add Dodaj do pokoju
       .listInfo
         h3.listInfo__title Lista usterek
-        i.fas.fa-caret-up.listInfo__switch(data-switch='false')
+        i.fas.fa-caret-up.listInfo__switch.listInfo__Faults(data-switch='false')
         p.listInfo__add.listInfo__add--fault
           i.fas.fa-plus-circle
         ul.listFaults
-          li.listFaults__item
-            p.listFaults__id 1
-            p.listFaults__description
-              | Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              | Voluptates asperiores perspiciatis dolorum vitae ab possimus nesciunt rei
-            p.listFaults__status W trakcie
-            button.listFaults__change Zmień status
-          li.listFaults__item
-            p.listFaults__id 2
-            p.listFaults__description
-              | Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              | Voluptates asperiores perspiciatis dolorum vitae ab possimus nesciunt rei
-            p.listFaults__status Naprawione
-            button.listFaults__change Zmień status
-          li.listFaults__item
-            p.listFaults__id 3
-            p.listFaults__description
-              | Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              | Voluptates asperiores perspiciatis dolorum vitae ab possimus nesciunt rei
-            p.listFaults__status Naprawione
-            button.listFaults__change Zmień status
-          li.listFaults__item
-            p.listFaults__id 4
-            p.listFaults__description
-              | Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              | Voluptates asperiores perspiciatis dolorum vitae ab possimus nesciunt rei
-            p.listFaults__status Naprawione
-            button.listFaults__change Zmień status
       .listInfo
         h3.listInfo__title Lista umów
         i.fas.fa-caret-up.listInfo__switch(data-switch='false')
@@ -255,3 +227,4 @@ html(lang='pl')
       p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
     script(src='/javascripts/main.2706ec3191df15072433.js')
     script(src='/javascripts/account.da5ef0ae6e834cf080d3.js')
+    script(src='/javascripts/searchFault.js')
