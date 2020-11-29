@@ -52,4 +52,18 @@ router.get('/fault', function (req, res) {
   });
 });
 
+router.post('/fault/:id', function (req, res) {
+  const findFault = Fault.findOneAndUpdate(
+    {
+      _id: req.params.id,
+    },
+    { $set: { status: req.body.status } },
+    (err, data) => {
+      if (err) {
+        console.log('Sth wrong');
+      }
+    },
+  );
+});
+
 module.exports = router;

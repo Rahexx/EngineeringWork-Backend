@@ -1,20 +1,43 @@
 const showFaults = document.querySelector('.listInfo__Faults');
 const listFaults = document.querySelector('.listFaults');
+const statusOptions = ['W trakcie', 'Naprawiono'];
 
-const emptyMessage = () => {
-  const li = document.createElement('li');
-  const p = document.createElement('p');
-  listFaults.textContent = '';
+const sendNewStatus = (parentElement, status) => {
+  const faultId = parentElement.dataset.id;
+  const url = `/account/fault/${faultId}`;
+  const data = {
+    status,
+  };
 
-  li.classList.add('listFaults__item');
-  p.classList.add('listFaults__description');
+  fetch(url, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+    });
+};
 
-  p.textContent = 'Nie masz żadnej zgłoszonej usterki';
-  p.style.width = '100%';
-  p.style.textAlign = 'center';
+const addEventStatusBtn = () => {
+  const statusBtns = document.querySelectorAll('.listFaults__change');
 
-  li.appendChild(p);
-  listFaults.appendChild(li);
+  [...statusBtns].map((item) => {
+    item.addEventListener('click', (e) => {
+      const status = e.target.previousElementSibling;
+      const indexItem = statusOptions.indexOf(status.textContent);
+      if (indexItem === 0) {
+        status.textContent = statusOptions[1];
+        sendNewStatus(e.target.parentElement, statusOptions[1]);
+      } else {
+        status.textContent = statusOptions[0];
+        sendNewStatus(e.target.parentElement, statusOptions[0]);
+      }
+    });
+  });
 };
 
 const addFaults = (response) => {
@@ -27,6 +50,8 @@ const addFaults = (response) => {
     const description = document.createElement('p');
     const status = document.createElement('p');
     const changeStatusBtn = document.createElement('button');
+
+    li.dataset.id = item._id;
 
     li.classList.add('listFaults__item');
     description.classList.add('listFaults__description');
@@ -47,6 +72,23 @@ const addFaults = (response) => {
   });
 
   listFaults.appendChild(fragment);
+  addEventStatusBtn();
+};
+
+const emptyMessage = () => {
+  const li = document.createElement('li');
+  const p = document.createElement('p');
+  listFaults.textContent = '';
+
+  li.classList.add('listFaults__item');
+  p.classList.add('listFaults__description');
+
+  p.textContent = 'Nie masz żadnej zgłoszonej usterki';
+  p.style.width = '100%';
+  p.style.textAlign = 'center';
+
+  li.appendChild(p);
+  listFaults.appendChild(li);
 };
 
 showFaults.addEventListener('click', () => {

@@ -82,6 +82,13 @@ html(lang='pl')
         p.listInfo__add.listInfo__add--fault
           i.fas.fa-plus-circle
         ul.listFaults
+          li.listFaults__item
+            p.listFaults__id 1
+            p.listFaults__description
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              | Voluptates asperiores perspiciatis dolorum vitae ab possimus nesciunt rei
+            p.listFaults__status W trakcie
+            button.listFaults__change Zmień status
       .listInfo
         h3.listInfo__title Lista umów
         i.fas.fa-caret-up.listInfo__switch(data-switch='false')
