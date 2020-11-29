@@ -7,6 +7,7 @@ html(lang='pl')
     link(href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;900&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
     link(href='/stylesheets/main.e1ba81f63acc95ff784d.css' rel='stylesheet')
+    link(href='/stylesheets/error.css' rel='stylesheet')
   body.accountContainer.container
     header.header
       h1.header__title Konto
@@ -181,6 +182,10 @@ html(lang='pl')
           .addFault__field
             label.addFault__label Opis usterki
             input.addFault__input(placeholder='Podaj opis usterki')
+          .addFault__field
+            label.addFault__label Podaj właściciela pokoju/najemcę
+            input.addFault__input(placeholder='Podaj użytkownika')
+            p.addFault__error Zły login
           .addFault__field
             label.addFault__label Status
             input.addFault__input.addFault__input--description(value='W trakcie' disabled='disabled')

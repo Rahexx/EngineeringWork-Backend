@@ -2,12 +2,22 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   res.render('logIn');
 });
 
-router.post('/', function (req, res, next) {
+router.get('/checkLogin/:login', (req, res) => {
+  const findUser = User.findOne({
+    login: req.params.login,
+  });
+
+  findUser.exec((err, data) => {
+    console.log(data);
+    res.json(data);
+  });
+});
+
+router.post('/', function (req, res) {
   const loginForm = req.body.login;
   const passwordForm = req.body.password;
 

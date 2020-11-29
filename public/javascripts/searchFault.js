@@ -1,6 +1,7 @@
 const showFaults = document.querySelector('.listInfo__Faults');
 const listFaults = document.querySelector('.listFaults');
 const statusOptions = ['W trakcie', 'Naprawiono'];
+const addFaultForm = document.querySelector('.addFault__form');
 
 const sendNewStatus = (parentElement, status) => {
   const faultId = parentElement.dataset.id;
@@ -91,6 +92,68 @@ const emptyMessage = () => {
   listFaults.appendChild(li);
 };
 
+const checkUser = async (login) => {
+  const url = `/login/checkLogin/${login}`;
+
+  const response = await fetch(url);
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    return Promise.reject(`Http error: ${response.status}`);
+  }
+};
+
+const loginWrong = () => {
+  const login = document.querySelectorAll('.addFault__input')[1];
+  const error = document.querySelector('.addFault__error');
+
+  login.style.border = '1px solid red';
+  error.style.opacity = '1';
+};
+
+const closeFormFault = () => {
+  const close = document.querySelector('.addFault__exit');
+
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+  const cancelled = !close.dispatchEvent(event);
+};
+
+const clearInputsFault = () => {
+  const description = document.querySelectorAll('.addFault__input')[0];
+  const login = document.querySelectorAll('.addFault__input')[1];
+
+  description.value = '';
+  login.value = '';
+};
+
+const addNewFault = (description, login) => {
+  const url = '/account/addFault/';
+
+  const data = {
+    description,
+    login,
+  };
+
+  fetch(url, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((response) => {});
+
+  closeFormFault();
+  clearInputsFault();
+};
+
 showFaults.addEventListener('click', () => {
   const url = `/account/fault`;
 
@@ -105,4 +168,20 @@ showFaults.addEventListener('click', () => {
         addFaults(response);
       }
     });
+});
+
+addFaultForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const description = document.querySelectorAll('.addFault__input')[0].value;
+  const login = document.querySelectorAll('.addFault__input')[1].value;
+
+  checkUser(login)
+    .then((response) => {
+      if (response != null) {
+        addNewFault(description, login);
+      } else {
+        loginWrong();
+      }
+    })
+    .catch((error) => console.log(error));
 });

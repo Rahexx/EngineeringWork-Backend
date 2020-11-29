@@ -66,4 +66,30 @@ router.post('/fault/:id', function (req, res) {
   );
 });
 
+router.post('/addFault/', function (req, res) {
+  const findUser = User.findOne({
+    login: req.body.login,
+  });
+
+  findUser.exec((err, data) => {
+    const idUser = data._id;
+    const findRoom = Room.findOne({
+      $and: [
+        { tenantId: { $in: [req.session.id, idUser] } },
+        { ownerId: { $in: [req.session.id, idUser] } },
+      ],
+    });
+
+    findRoom.exec((err, data) => {
+      const searchRoomId = data._id;
+      const newFault = new Fault({
+        roomId: searchRoomId,
+        description: req.body.description,
+      });
+
+      newFault.save();
+    });
+  });
+});
+
 module.exports = router;
