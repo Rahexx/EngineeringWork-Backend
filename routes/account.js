@@ -130,22 +130,28 @@ router.post('/addSettlement/', function (req, res) {
 
 router.post('/addAgreement', (req, res) => {
   console.log(req.body);
-  console.log(req.files);
+
   if (req.files) {
     const file = req.files.file;
     const indexDot = file.name.indexOf('.');
     const name = file.name.slice(0, indexDot);
     const extendFile = file.name.slice(indexDot, file.name.length);
     const randomId = Math.floor(Math.random() * (1000000 - 10) + 10);
-    const fileName = `${name}.${randomId}${extendFile}`;
-
+    const fileName = `${req.body.name}.${randomId}${extendFile}`;
     const url = `${__dirname}/../public/agreements/${fileName}`;
 
     file.mv(url, (err) => {
       if (err) {
         console.log(err);
       } else {
-        console.log('Udało się');
+        const newAgreement = new Agreement({
+          tenantLogin: req.body.login,
+          ownerLogin: req.session.login,
+          pathFile: `/agreements/${fileName}`,
+        });
+
+        newAgreement.save();
+        res.redirect('/account');
       }
     });
   }
