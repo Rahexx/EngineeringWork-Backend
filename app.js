@@ -6,6 +6,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var config = require('./config');
 const mongoose = require('mongoose');
+const fileupload = require('express-fileupload');
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var upload = multer();
 
 mongoose.connect(config.db, { useNewUrlParser: true });
 
@@ -40,6 +44,7 @@ app.use(
     maxAge: config.maxAgeSession,
   }),
 );
+app.use(fileupload());
 
 app.use('/', indexRouter);
 app.use('/logIn', logInRouter);

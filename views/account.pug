@@ -170,20 +170,25 @@ html(lang='pl')
       .addAgreement
         i.fas.fa-times.addAgreement__exit
         h2.addAgreement__title Dodaj nową umowę
-        form.addAgreement__form
+        form.addAgreement__form(method='POST' action='account/addAgreement' enctype="multipart/form-data")
           .addAgreement__field
             label.addAgreement__label Nazwa umowy
-            input.addAgreement__input(placeholder='Podaj nazwę umowy')
+            input.addAgreement__input(name='name' placeholder='Podaj nazwę umowy')
+            p.addFault__error.addAgreement__errorName Podaj nazwę umowy
           .addAgreement__field
-            label.addAgreement__label
-              | podaj za jaki termin w formacie
-              | miesiąc/rok
-            input.addAgreement__input.addFault__input--description(placeholder='Podaj termin')
+            label.addAgreement__label Podaj termin
+            input.addAgreement__input.addFault__input--description(name='date' type='date' placeholder='Podaj termin')
+            p.addFault__error.addAgreement__errorDate Podaj date
+          .addAgreement__field
+            label.addAgreement__label Podaj login użytkownika
+            input.addAgreement__input(name='login' placeholder='Podaj login użytkownika')
+            p.addFault__error.addAgreement__errorLogin Podaj login
           .addAgreement__field
             label.addAgreement__label Dodaj umowę
-            input.addAgreement__input.addAgreement__input--file(type='file')
+            input.addAgreement__input.addAgreement__input--file(name='file' type='file')
+            p.addFault__error.addAgreement__errorFile Podaj plik
           .addAgreement__field
-            input.addAgreement__submit(type='submit' value='Wyślij')
+            input.addAgreement__submit(type='submit' value='Wyślij' disabled)
       .addSettlement
         i.fas.fa-times.addSettlement__exit
         h2.addSettlement__title Dodaj nowe rozliczenie
@@ -218,3 +223,4 @@ html(lang='pl')
     script(src='/javascripts/account.da5ef0ae6e834cf080d3.js')
     script(src='/javascripts/searchFault.js')
     script(src='/javascripts/searchSettlement.js')
+    script(src='/javascripts/agreement.js')
