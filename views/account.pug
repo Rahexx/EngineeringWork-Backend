@@ -92,7 +92,7 @@ html(lang='pl')
             button.listFaults__change Zmień status
       .listInfo
         h3.listInfo__title Lista umów
-        i.fas.fa-caret-up.listInfo__switch(data-switch='false')
+        i.fas.fa-caret-up.listInfo__switch.listInfo__Agreements(data-switch='false')
         p.listInfo__add.listInfo__add--agreement
           i.fas.fa-plus-circle
         ul.listAgreements
@@ -100,22 +100,14 @@ html(lang='pl')
             p.listAgreements__id 1
             p.listAgreements__name
               a.listAgreements__link(href='#') nazwa__umowy.pdf
-            p.listAgreements__date 10/20
           li.listAgreements__item
             p.listAgreements__id 2
             p.listAgreements__name
               a.listAgreements__link(href='#') nazwa__umowy.pdf
-            p.listAgreements__date 10/20
           li.listAgreements__item
             p.listAgreements__id 3
             p.listAgreements__name
               a.listAgreements__link(href='#') nazwa__umowy.pdf
-            p.listAgreements__date 10/20
-          li.listAgreements__item
-            p.listAgreements__id 4
-            p.listAgreements__name
-              a.listAgreements__link(href='#') nazwa__umowy.pdf
-            p.listAgreements__date 10/20
       .listInfo
         h3.listInfo__title Lista rozliczeń
         i.fas.fa-caret-up.listInfo__switch.listInfo__Settlement(data-switch='false')

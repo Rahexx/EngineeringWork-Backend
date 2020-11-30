@@ -117,7 +117,7 @@ router.get('/settlement/delete/:id', function (req, res) {
   });
 });
 
-router.post('/addSettlement/', function (req, res) {
+router.post('/addSettlement/', (req, res) => {
   const newSettlement = new Settlement({
     price: req.body.cost,
     date: req.body.date,
@@ -126,6 +126,19 @@ router.post('/addSettlement/', function (req, res) {
   });
 
   newSettlement.save();
+});
+
+router.get('/agreement', (req, res) => {
+  const findAgreement = Agreement.find({
+    $or: [
+      { tenantLogin: req.session.login },
+      { ownerLogin: req.session.login },
+    ],
+  });
+
+  findAgreement.exec((err, data) => {
+    res.json(data);
+  });
 });
 
 router.post('/addAgreement', (req, res) => {
