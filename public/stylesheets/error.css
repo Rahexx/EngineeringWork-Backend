@@ -1,7 +1,7 @@
 .addFault__error {
   position: absolute;
   top: -30px;
-  right: 40px;
+  right: 30px;
   color: red;
   opacity: 0;
 }

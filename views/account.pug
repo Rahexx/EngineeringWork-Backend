@@ -23,13 +23,13 @@ html(lang='pl')
         li.nagivation__item
           a.navigation__link(href='/listRooms') Pokoje
         li.nagivation__item
-          a.navigation__link.navigation__link--active(href='/favourites') Ulubione
+          a.navigation__link(href='/favourites') Ulubione
         li.nagivation__item
           a.navigation__link(href='/searchUsers') Użytkownicy
         li.nagivation__item
           a.navigation__link(href='/messages') Wiadomości
         li.nagivation__item
-          a.navigation__link(href='/account') Konto
+          a.navigation__link.navigation__link--active(href='/account') Konto
         if  role === 'admin'
           li.nagivation__item
             a.navigation__link(href='/admin') Admin
@@ -121,24 +121,29 @@ html(lang='pl')
       .addRoom
         i.fas.fa-times.addRoom__exit
         h2.addRoom__title Dodaj nowy pokój
-        form.addRoom__form
+        form.addRoom__form(method='POST' action='account/addRoom' enctype="multipart/form-data")
           .addRoom__field
             label.addRoom__label Nazwa ogłoszenia
-            input.addRoom__input(placeholder='Podaj nazwę ogłoszenia')
+            input.addRoom__input.addRoom__input--title(name='title' placeholder='Podaj nazwę ogłoszenia')
+            p.addFault__error.addRoom__titleError Nazwa musi mieć min. 3 znaki
           .addRoom__field
             label.addRoom__label Opis
-            input.addRoom__input.addRoom__input--description(placeholder='Dodaj opis ogłoszenia')
+            input.addRoom__input.addRoom__input--description(name='description' placeholder='Dodaj opis ogłoszenia')
+            p.addFault__error.addRoom__descriptionError Opis musi mieć min. 10znaki
           .addRoom__field
             label.addRoom__label Kwota za miesiąc
-            input.addRoom__input(type='number' placeholder='Podaj kwotę')
+            input.addRoom__input.addRoom__input--price(name='price' type='number' placeholder='Podaj kwotę')
+            p.addFault__error.addRoom__priceError Kwota musi być powyżej 0
           .addRoom__field
             label.addRoom__label Podaj lokalizacje pokoju
-            input.addRoom__input(placeholder='Podaj lokalizacje')
+            input.addRoom__input.addRoom__input--location(name='location' placeholder='Podaj lokalizacje')
+            p.addFault__error.addRoom__locationError Musi mieć min. 3 znaki
           .addRoom__field
             label.addRoom__label Dodaj zdjęcie pokoju
-            input.addRoom__input.addRoom__input--file(type='file')
+            input.addRoom__input.addRoom__input--file(name='file' type='file')
+            p.addFault__error.addRoom__fileError Dodaj zdjecie
           .addRoom__field
-            input.addRoom__submit(type='submit' value='Wyślij')
+            input.addRoom__submit(type='submit' value='Wyślij' disabled)
       .addFault
         i.fas.fa-times.addFault__exit
         h2.addFault__title Dodaj nową usterkę

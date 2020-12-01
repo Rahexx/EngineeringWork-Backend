@@ -142,8 +142,6 @@ router.get('/agreement', (req, res) => {
 });
 
 router.post('/addAgreement', (req, res) => {
-  console.log(req.body);
-
   if (req.files) {
     const file = req.files.file;
     const indexDot = file.name.indexOf('.');
@@ -183,6 +181,34 @@ router.get('/rooms', (req, res) => {
       currentUser,
     });
   });
+});
+
+router.post('/addRoom', (req, res) => {
+  if (req.files) {
+    const file = req.files.file;
+    const indexDot = file.name.indexOf('.');
+    const extendFile = file.name.slice(indexDot, file.name.length);
+    const randomId = Math.floor(Math.random() * (1000000 - 10) + 10);
+    const fileName = `room.${randomId}${extendFile}`;
+    const url = `${__dirname}/../public/images/${fileName}`;
+
+    file.mv(url, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        const newRoom = new Room({
+          title: req.body.title,
+          description: req.body.description,
+          price: req.body.price,
+          pathImage: `/images/${fileName}`,
+          location: req.body.location,
+          ownerId: req.session.id,
+        });
+        newRoom.save();
+        res.redirect('/account');
+      }
+    });
+  }
 });
 
 module.exports = router;
