@@ -183,6 +183,44 @@ router.get('/rooms', (req, res) => {
   });
 });
 
+router.get('/addUser/:login/:id', (req, res) => {
+  const findUser = User.findOne({
+    login: req.params.login,
+  });
+
+  findUser.exec((err, data) => {
+    const findRoom = Room.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: { tenantId: data._id } },
+      (err, data) => {
+        if (err) {
+          console.log('Sth wrong');
+          res.json({ isDone: false });
+        }
+        res.json({ isDone: true });
+      },
+    );
+  });
+});
+
+router.get('/removeUser/:id', (req, res) => {
+  const findRoom = Room.findOneAndUpdate(
+    {
+      _id: req.params.id,
+    },
+    { $set: { tenantId: '' } },
+    (err, data) => {
+      if (err) {
+        console.log('Sth wrong');
+        res.json({ isDone: false });
+      }
+      res.json({ isDone: true });
+    },
+  );
+});
+
 router.post('/addRoom', (req, res) => {
   if (req.files) {
     const file = req.files.file;

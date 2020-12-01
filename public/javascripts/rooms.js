@@ -16,12 +16,120 @@ const priceError = document.querySelector('.addRoom__priceError');
 const locationError = document.querySelector('.addRoom__locationError');
 const fileError = document.querySelector('.addRoom__fileError');
 
+// add user to room
+const addUser = document.querySelector('.addUserRoom');
+const form = document.querySelector('.addUserRoom__form');
+let idRoom = '';
+
 // validation flags
 let isTitleValid = false;
 let isDescriptionValid = false;
 let isPriceValid = false;
 let isLocationValid = false;
 let isFileValid = false;
+
+const closeAddUser = (isPopUp = false) => {
+  const closeList = document.querySelector('.listInfo__switch--rooms');
+
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+  if (isPopUp) {
+    const exit = document.querySelector('.addUserRoom__exit');
+    const cancelled = !exit.dispatchEvent(event);
+  }
+  const close = !closeList.dispatchEvent(event);
+};
+
+// remove user from room
+
+const removeUser = () => {
+  const url = `/account/removeUser/${idRoom}`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.isDone) {
+        closeAddUser();
+      }
+    });
+};
+
+const removeUserEvent = () => {
+  const removeBtns = document.querySelectorAll('.listRooms__btn--delete');
+
+  [...removeBtns].map((item) => {
+    item.addEventListener('click', (e) => {
+      const parent = e.target.parentElement;
+      idRoom = parent.dataset.id;
+      removeUser();
+    });
+  });
+};
+
+// show add user to room form
+
+const openAddUser = (target) => {
+  const parent = target.parentElement;
+  idRoom = parent.dataset.id;
+  const pageWidth = document.body.offsetWidth;
+  const pageHeight = window.innerHeight;
+
+  if (pageWidth < 1024) {
+    gsap.to(addUser, { x: pageWidth, duration: 1 });
+  } else if (pageWidth < 1200) {
+    gsap.to(addUser, { y: (pageHeight / 100) * 7.5, duration: 0.1 });
+    gsap.to(addUser, { x: pageWidth * 0.75, duration: 1, delay: 0.1 });
+  } else {
+    gsap.to(addUser, { y: (pageHeight / 100) * 7.5, duration: 0.1 });
+    gsap.to(addUser, { x: pageWidth * 0.66, duration: 1, delay: 0.1 });
+  }
+};
+
+const addEventAddUser = () => {
+  const addUserBtns = document.querySelectorAll('.listRooms__btn--add');
+
+  [...addUserBtns].map((item) => {
+    item.addEventListener('click', (e) => {
+      openAddUser(e.target);
+    });
+  });
+};
+
+const addUserRoom = (login) => {
+  const url = `/account/addUser/${login.value}/${idRoom}`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.isDone) {
+        closeAddUser(true);
+      }
+    });
+};
+
+const submitForm = () => {
+  const login = document.querySelector('.addUserRoom__input');
+  const error = document.querySelector('.addUserRoom__error');
+  const loginValue = login.value;
+
+  if (loginValue) {
+    checkUser(loginValue)
+      .then((response) => {
+        if (response != null) {
+          addUserRoom(login);
+        } else {
+          error.textContent = 'Brak użytkownika';
+          loginWrong(login, error);
+        }
+      })
+      .catch((error) => console.log(error));
+  } else {
+    loginWrong(login, error);
+  }
+};
 
 // validation for add room to database
 const validTitleRoom = () => {
@@ -86,7 +194,6 @@ const validFileRoom = () => {
 const addRooms = (response) => {
   const { data } = response;
   const { currentUser } = response;
-  console.log(currentUser);
   const fragment = new DocumentFragment();
   listRooms.textContent = '';
 
@@ -128,6 +235,8 @@ const addRooms = (response) => {
   });
 
   listRooms.appendChild(fragment);
+  addEventAddUser();
+  removeUserEvent();
 };
 
 const emptyMessageRooms = () => {
@@ -169,6 +278,11 @@ descriptionRoom.addEventListener('input', validDescriptionRoom);
 priceRoom.addEventListener('input', validPriceRoom);
 locationRoom.addEventListener('input', validLocationRoom);
 fileError.addEventListener('input', validFileRoom);
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  submitForm();
+});
 
 setInterval(() => {
   if (isTitleValid && isDescriptionValid && isPriceValid && isLocationValid) {
