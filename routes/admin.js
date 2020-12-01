@@ -59,7 +59,7 @@ router.get('/edit/:id', function (req, res) {
   });
 });
 
-router.get('/delete/:id', function (req, res, next) {
+router.get('/delete/:id', function (req, res) {
   const findUser = User.findByIdAndDelete({ _id: req.params.id });
 
   findUser.exec((err, data) => {
@@ -67,24 +67,31 @@ router.get('/delete/:id', function (req, res, next) {
   });
 });
 
-router.get('/search/:login', function (req, res, next) {
-  const findUser = User.find({
-    login: { $regex: `^${req.params.login}`, $options: 'i' },
-  }).sort({
-    login: -1,
-  });
+router.get('/searchUser', function (req, res) {
+  const { page = 1, limit = 2, login } = req.query;
 
-  findUser.exec((err, data) => {
-    res.json(data);
+  const findUser = User.find({
+    login: { $regex: `^${login}`, $options: 'i' },
+  })
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .sort({
+      login: -1,
+    });
+
+  findUser.exec(async (err, data) => {
+    const count = await User.countDocuments();
+
+    res.json({ data, totalPages: Math.ceil(count / limit) });
   });
 });
 
-router.post('/update/:id', function (req, res, next) {
+router.post('/update/:id', function (req, res) {
   User.findOne({ _id: req.params.id }, (err, data) => {
     if (err) {
       res.json({ isUpdate: false });
     }
-
+    console.log(req.body);
     data.name = req.body.name;
     data.surname = req.body.surname;
     data.email = req.body.email;

@@ -3,12 +3,22 @@ const listPages = document.querySelector('.pagination');
 const items = document.querySelectorAll('.pagination__item');
 const detailsInfo = document.querySelector('.popUp--details');
 const detailsBurger = document.querySelector('.burger--details');
+const editInfo = document.querySelector('.popUp--edit');
+const editBurger = document.querySelector('.burger--edit');
+const searchForm = document.querySelector('.adminPanel__searchForm');
+let login = '';
 let page = 1;
 
 const closeDetails = () => {
   detailsBurger.removeEventListener('click', closeDetails);
   gsap.to('.popUp--details', { left: '-100vw', duration: 1 });
   detailsBurger.style.display = 'none';
+};
+
+const closeEdit = () => {
+  editInfo.removeEventListener('click', closeDetails);
+  gsap.to('.popUp--edit', { left: '-100vw', duration: 1 });
+  editBurger.style.display = 'none';
 };
 
 const showDetails = () => {
@@ -24,6 +34,22 @@ const showDetails = () => {
   setTimeout(() => {
     detailsBurger.style.display = 'flex';
     detailsBurger.addEventListener('click', closeDetails);
+  }, 900);
+};
+
+const showEditForm = () => {
+  const pageWidth = document.body.offsetWidth;
+  editInfo.style.display = 'block';
+
+  if (pageWidth < 1024) {
+    gsap.to('.popUp--edit', { left: 0, duration: 1 });
+  } else {
+    gsap.to('.popUp--edit', { left: pageWidth / 2, duration: 1 });
+  }
+
+  setTimeout(() => {
+    editBurger.style.display = 'flex';
+    editBurger.addEventListener('click', closeEdit);
   }, 900);
 };
 
@@ -44,6 +70,52 @@ const addInfoEvent = () => {
         .then((response) => response.json())
         .then((response) => {
           setInfoData(response);
+        });
+    });
+  });
+};
+
+const addEditEvent = () => {
+  const editBtns = document.querySelectorAll('.adminPanel__button--edit');
+
+  [...editBtns].map((item) => {
+    item.addEventListener('click', () => {
+      showEditForm();
+
+      const parent = item.parentElement;
+      const id = parent.dataset.id;
+      editId = id;
+      editParent = parent;
+
+      const url = `/admin/edit/${id}`;
+
+      fetch(url, {
+        method: 'get',
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          setEditData(response);
+        });
+    });
+  });
+};
+
+const addRemoveEvent = () => {
+  const deleteBtns = document.querySelectorAll('.adminPanel__button--delete');
+
+  [...deleteBtns].map((item) => {
+    item.addEventListener('click', () => {
+      const parent = item.parentElement;
+      const id = parent.dataset.id;
+
+      const url = `/admin/delete/${id}`;
+
+      fetch(url, {
+        method: 'get',
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          deleteItem(parent);
         });
     });
   });
@@ -99,7 +171,7 @@ const changeItem = (response) => {
     loginSpan.textContent = item.login;
     emailSpan.textContent = item.email;
     nameSpan.textContent = item.name;
-    surname.textContent = item.surname;
+    surnameSpan.textContent = item.surname;
 
     login.appendChild(loginSpan);
     email.appendChild(emailSpan);
@@ -118,6 +190,7 @@ const changeItem = (response) => {
   listUsers.insertBefore(fragment, listPages);
   addInfoEvent();
   addEditEvent();
+  addRemoveEvent();
 };
 
 const changePage = () => {
@@ -139,6 +212,65 @@ const addActiveClass = (target) => {
   target.classList.add('pagination__item--active');
 };
 
+const changePageForm = () => {
+  const url = `/admin/searchUser?page=${page}&login=${login}`;
+
+  fetch(url, {
+    method: 'get',
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      changeItem(response.data);
+    });
+};
+
+const addEventPaginationForm = () => {
+  const items = document.querySelectorAll('.pagination__item');
+
+  [...items].map((item) => {
+    item.addEventListener('click', (e) => {
+      page = Number(e.target.textContent);
+
+      if (items.length > 1) {
+        deleteActiveClass();
+      }
+      addActiveClass(e.target);
+      changePage();
+    });
+  });
+};
+
+const getSearchUser = (login) => {
+  page = 1;
+  const url = `/admin/searchUser?page=${page}&login=${login}`;
+
+  fetch(url, {
+    method: 'get',
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      changeItem(response.data);
+      const fragment = new DocumentFragment();
+      listPages.textContent = '';
+
+      for (let i = 0; i < response.totalPages - 1; i++) {
+        const li = document.createElement('li');
+        if (i + 1 === page) {
+          li.classList.add('pagination__item', 'pagination__item--active');
+        } else {
+          li.classList.add('pagination__item');
+        }
+
+        li.textContent = i + 1;
+
+        fragment.appendChild(li);
+      }
+
+      listPages.appendChild(fragment);
+      addEventPaginationForm();
+    });
+};
+
 [...items].map((item) => {
   item.addEventListener('click', (e) => {
     page = Number(e.target.textContent);
@@ -147,4 +279,12 @@ const addActiveClass = (target) => {
     addActiveClass(e.target);
     changePage();
   });
+});
+
+searchForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const searchLogin = searchFormData();
+  login = searchLogin;
+  getSearchUser(searchLogin);
 });

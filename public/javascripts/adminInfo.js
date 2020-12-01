@@ -3,7 +3,6 @@ const infoBtn = document.querySelectorAll('.adminPanel__button--details');
 const editBtn = document.querySelectorAll('.adminPanel__button--edit');
 const deleteBtn = document.querySelectorAll('.adminPanel__button--delete');
 const submitEditBtn = document.querySelector('.submitEdit');
-const searchForm = document.querySelector('.adminPanel__searchForm');
 
 // elements to change value when it's necessary
 const infoName = document.querySelector('.popUp__detailsInfo--name');
@@ -148,18 +147,6 @@ const showSearchUser = (response) => {
   });
 };
 
-const getSearchUser = (login) => {
-  const url = `/admin/search/${login}`;
-
-  fetch(url, {
-    method: 'get',
-  })
-    .then((response) => response.json())
-    .then((response) => {
-      showSearchUser(response);
-    });
-};
-
 [...infoBtn].map((item) => {
   item.addEventListener('click', () => {
     const parent = item.parentElement;
@@ -220,9 +207,4 @@ submitEditBtn.addEventListener('click', (e) => {
   sendUpdateData(formData);
 });
 
-searchForm.addEventListener('submit', (e) => {
-  e.preventDefault();
 
-  const searchLogin = searchFormData();
-  getSearchUser(searchLogin);
-});
