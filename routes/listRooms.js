@@ -19,6 +19,7 @@ router.get('/', function (req, res) {
         $gte: priceFrom ? priceFrom : 0,
         $lte: priceTo ? priceTo : 10000,
       },
+      tenantId: '',
     }).sort({
       dateAdd: -1,
     });
@@ -28,7 +29,9 @@ router.get('/', function (req, res) {
       res.json(data);
     });
   } else {
-    const findRoom = Room.find().sort({
+    const findRoom = Room.find({
+      tenantId: '',
+    }).sort({
       dateAdd: -1,
     });
 

@@ -15,7 +15,9 @@ router.all('*', (req, res, next) => {
 });
 
 router.get('/', function (req, res, next) {
-  const findUser = User.find().sort({
+  const findUser = User.find({
+    _id: { $nin: [req.session.id] },
+  }).sort({
     login: -1,
   });
 
