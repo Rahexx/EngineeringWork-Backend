@@ -61,7 +61,7 @@ const checkHearts = (response) => {
   });
 });
 
-window.addEventListener('load', () => {
+setInterval(() => {
   const url = `/listRooms/showAll/yes`;
 
   fetch(url, {
@@ -71,4 +71,4 @@ window.addEventListener('load', () => {
     .then((response) => {
       checkHearts(response);
     });
-});
+}, 200);

@@ -80,7 +80,9 @@ router.get('/searchUser', function (req, res) {
     });
 
   findUser.exec(async (err, data) => {
-    const count = await User.countDocuments();
+    const count = await User.countDocuments({
+      login: { $regex: `^${login}`, $options: 'i' },
+    });
 
     res.json({ data, totalPages: Math.ceil(count / limit) });
   });

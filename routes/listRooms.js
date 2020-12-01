@@ -4,9 +4,14 @@ const Room = require('../models/room');
 const Favourite = require('../models/favourites');
 
 router.get('/', function (req, res) {
-  const { location } = req.query;
-  const { priceFrom } = req.query;
-  const { priceTo } = req.query;
+  const {
+    page = 1,
+    limit = 4,
+    isJson = false,
+    location,
+    priceFrom,
+    priceTo,
+  } = req.query;
 
   if (
     location !== undefined ||
@@ -29,14 +34,36 @@ router.get('/', function (req, res) {
       res.json(data);
     });
   } else {
+    console.log('Jestem tu');
     const findRoom = Room.find({
       tenantId: '',
-    }).sort({
-      dateAdd: -1,
-    });
+    })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .sort({
+        dateAdd: -1,
+      });
 
-    findRoom.exec((err, data) => {
-      res.render('listRooms', { role: req.session.role, data });
+    findRoom.exec(async (err, data) => {
+      const count = await Room.countDocuments({
+        tenantId: '',
+      });
+
+      if (isJson) {
+        res.json({
+          role: req.session.role,
+          data,
+          totalPages: Math.ceil(count / limit),
+          currentPage: page,
+        });
+      } else {
+        res.render('listRooms', {
+          role: req.session.role,
+          data,
+          totalPages: Math.ceil(count / limit),
+          currentPage: page,
+        });
+      }
     });
   }
 });

@@ -38,6 +38,7 @@ router.get('/', function (req, res, next) {
       });
     } else {
       res.json({
+        role: req.session.role,
         data,
         totalPages: Math.ceil(count / limit),
       });
