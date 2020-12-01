@@ -170,4 +170,19 @@ router.post('/addAgreement', (req, res) => {
   }
 });
 
+router.get('/rooms', (req, res) => {
+  const findRoom = Room.find({
+    $or: [{ tenantId: req.session.id }, { ownerId: req.session.id }],
+  });
+
+  findRoom.exec((err, data) => {
+    const currentUser = req.session.id;
+
+    res.json({
+      data,
+      currentUser,
+    });
+  });
+});
+
 module.exports = router;

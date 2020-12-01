@@ -8,6 +8,7 @@ html(lang='pl')
     link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
     link(href='/stylesheets/main.e1ba81f63acc95ff784d.css' rel='stylesheet')
     link(href='/stylesheets/error.css' rel='stylesheet')
+    link(href='/stylesheets/roomAccount.css' rel='stylesheet')
   body.accountContainer.container
     header.header
       h1.header__title Konto
@@ -52,29 +53,24 @@ html(lang='pl')
         p.accountPanel__info płeć: #{data.sex}
       .listInfo
         h3.listInfo__title Lista pokoi
-        i.fas.fa-caret-up.listInfo__switch(data-switch='false')
+        i.fas.fa-caret-up.listInfo__switch.listInfo__switch--rooms(data-switch='false')
         p.listInfo__add.listInfo__add--room
           i.fas.fa-plus-circle
         ul.listRooms
           li.listRooms__item
             p.listRooms__id 1
-            img.listRooms__image(src='imgs/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
+            img.listRooms__image(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
             p.listRooms__login
               a.listRooms__link(href='./profile.html') Veex
             button.listRooms__btn--delete Usuń z pokoju
           li.listRooms__item
             p.listRooms__id 2
-            img.listRooms__image(src='imgs/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
+            img.listRooms__image(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
             p.listRooms__login.listRooms__login--empty Nie ma nikogo przypisanego do pokoju
             button.listRooms__btn--add Dodaj do pokoju
           li.listRooms__item
             p.listRooms__id 3
-            img.listRooms__image(src='imgs/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
-            p.listRooms__login.listRooms__login--empty Nie ma nikogo przypisanego do pokoju
-            button.listRooms__btn--add Dodaj do pokoju
-          li.listRooms__item
-            p.listRooms__id 4
-            img.listRooms__image(src='imgs/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
+            img.listRooms__image(src='images/room.a9cc98f6097b1131cbf2ee2ef6226b5c.jpg' alt='zdjęcie pokoju')
             p.listRooms__login.listRooms__login--empty Nie ma nikogo przypisanego do pokoju
             button.listRooms__btn--add Dodaj do pokoju
       .listInfo
@@ -212,3 +208,4 @@ html(lang='pl')
     script(src='/javascripts/searchFault.js')
     script(src='/javascripts/searchSettlement.js')
     script(src='/javascripts/agreement.js')
+    script(src='/javascripts/rooms.js')

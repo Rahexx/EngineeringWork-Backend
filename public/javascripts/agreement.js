@@ -39,7 +39,7 @@ const emptyMessageAgreement = () => {
   li.classList.add('listAgreements__item');
   p.classList.add('listAgreements__date');
 
-  p.textContent = 'Nie masz zgłoszonej żadnej płatności';
+  p.textContent = 'Nie dodałeś ani nie jesteś dodany do żadnej umowy';
   p.style.width = '100%';
   p.style.textAlign = 'center';
 
@@ -52,7 +52,6 @@ const addAgreements = (response) => {
   listAgreement.textContent = '';
 
   response.forEach((item, index) => {
-    console.log(item);
     const li = document.createElement('li');
     const indexItem = document.createElement('p');
     const name = document.createElement('p');
@@ -113,7 +112,6 @@ switcher.addEventListener('click', () => {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
       if (response.length === 0) {
         emptyMessageAgreement();
       } else {

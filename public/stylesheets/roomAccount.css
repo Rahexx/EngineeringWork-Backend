@@ -1,0 +1,12 @@
+.listRooms__login {
+  margin: 0 2vw;
+}
+
+@media (min-width: 568px) {
+  .listRooms__login {
+    line-height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
