@@ -1,7 +1,53 @@
 const listUsers = document.querySelector('.adminPanel__listUser');
 const listPages = document.querySelector('.pagination');
 const items = document.querySelectorAll('.pagination__item');
+const detailsInfo = document.querySelector('.popUp--details');
+const detailsBurger = document.querySelector('.burger--details');
 let page = 1;
+
+const closeDetails = () => {
+  detailsBurger.removeEventListener('click', closeDetails);
+  gsap.to('.popUp--details', { left: '-100vw', duration: 1 });
+  detailsBurger.style.display = 'none';
+};
+
+const showDetails = () => {
+  const pageWidth = document.body.offsetWidth;
+  detailsInfo.style.display = 'block';
+
+  if (pageWidth < 1024) {
+    gsap.to('.popUp--details', { left: 0, duration: 1 });
+  } else {
+    gsap.to('.popUp--details', { left: pageWidth / 2, duration: 1 });
+  }
+
+  setTimeout(() => {
+    detailsBurger.style.display = 'flex';
+    detailsBurger.addEventListener('click', closeDetails);
+  }, 900);
+};
+
+const addInfoEvent = () => {
+  const infoBtns = document.querySelectorAll('.adminPanel__button--details');
+
+  [...infoBtns].map((item) => {
+    item.addEventListener('click', () => {
+      showDetails();
+      const parent = item.parentElement;
+      const id = parent.dataset.id;
+
+      const url = `/admin/info/${id}`;
+
+      fetch(url, {
+        method: 'get',
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          setInfoData(response);
+        });
+    });
+  });
+};
 
 const changeItem = (response) => {
   const fragment = new DocumentFragment();
@@ -70,6 +116,8 @@ const changeItem = (response) => {
   });
 
   listUsers.insertBefore(fragment, listPages);
+  addInfoEvent();
+  addEditEvent();
 };
 
 const changePage = () => {
@@ -78,7 +126,6 @@ const changePage = () => {
   fetch(url)
     .then((response) => response.json())
     .then((response) => {
-      console.log(response.data);
       changeItem(response.data);
     });
 };
