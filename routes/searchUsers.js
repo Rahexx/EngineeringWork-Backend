@@ -15,26 +15,56 @@ router.all('*', (req, res, next) => {
 });
 
 router.get('/', function (req, res, next) {
+  const { page = 1, limit = 2, isJson = false } = req.query;
+
   const findUser = User.find({
     _id: { $nin: [req.session.id] },
-  }).sort({
-    login: -1,
-  });
+  })
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .sort({
+      login: -1,
+    });
 
-  findUser.exec((err, data) => {
-    res.render('searchUser', { role: req.session.role, data });
+  findUser.exec(async (err, data) => {
+    const count = await User.countDocuments();
+
+    if (isJson === false) {
+      res.render('searchUser', {
+        role: req.session.role,
+        data,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page,
+      });
+    } else {
+      res.json({
+        data,
+        totalPages: Math.ceil(count / limit),
+      });
+    }
   });
 });
 
-router.get('/:login', function (req, res, next) {
-  const findUser = User.find({
-    login: { $regex: `^${req.params.login}`, $options: 'i' },
-  }).sort({
-    login: -1,
-  });
+router.get('/searchLogin', function (req, res) {
+  const { page = 1, limit = 2, isJson = false, login } = req.query;
 
-  findUser.exec((err, data) => {
-    res.json(data);
+  const findUser = User.find({
+    _id: { $nin: [req.session.id] },
+    login: { $regex: `^${login}`, $options: 'i' },
+  })
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .sort({
+      login: -1,
+    });
+
+  findUser.exec(async (err, data) => {
+    const count = await User.countDocuments({
+      _id: { $nin: [req.session.id] },
+      login: { $regex: `^${login}`, $options: 'i' },
+    });
+
+    res.json({ data, totalPages: Math.ceil(count / limit) });
   });
 });
 

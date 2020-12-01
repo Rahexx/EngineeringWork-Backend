@@ -50,7 +50,14 @@ html(lang='pl')
                 p.users__login=item.login
                 a.users__link(href=`/searchUsers/profile/${item._id}`)
                     i.fas.fa-arrow-right
+        ul.pagination
+          - for (var i = 1; i <= totalPages; ++i) {
+            if i == currentPage
+              li.pagination__item.pagination__item--active= i
+            else
+              li.pagination__item= i
+          -}
     footer.footer
       p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
     script(src='/javascripts/main.2706ec3191df15072433.js')
-    script(src='/javascripts/searchUser.js')
+    script(src='/javascripts/searchUserPagination.js')
