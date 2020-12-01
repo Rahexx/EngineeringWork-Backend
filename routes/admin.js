@@ -14,17 +14,36 @@ router.all('*', (req, res, next) => {
   next();
 });
 
-router.get('/', function (req, res, next) {
-  const findUser = User.find().sort({
-    login: -1,
-  });
+router.get('/', (req, res) => {
+  const { page = 1, limit = 2, isJson = false } = req.query;
 
-  findUser.exec((err, data) => {
-    res.render('admin', { role: req.session.role, data });
+  const findUser = User.find()
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .sort({
+      login: -1,
+    });
+
+  findUser.exec(async (err, data) => {
+    const count = await User.countDocuments();
+
+    if (isJson === false) {
+      res.render('admin', {
+        role: req.session.role,
+        data,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page,
+      });
+    } else {
+      res.json({
+        data,
+        totalPages: Math.ceil(count / limit),
+      });
+    }
   });
 });
 
-router.get('/info/:id', function (req, res, next) {
+router.get('/info/:id', function (req, res) {
   const findUser = User.findOne({ _id: req.params.id });
 
   findUser.exec((err, data) => {
@@ -32,7 +51,7 @@ router.get('/info/:id', function (req, res, next) {
   });
 });
 
-router.get('/edit/:id', function (req, res, next) {
+router.get('/edit/:id', function (req, res) {
   const findUser = User.findOne({ _id: req.params.id });
 
   findUser.exec((err, data) => {

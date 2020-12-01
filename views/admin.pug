@@ -60,6 +60,13 @@ html(lang='pl')
             button.adminPanel__button.adminPanel__button--details Szczegóły
             button.adminPanel__button.adminPanel__button--edit Edytuj
             button.adminPanel__button.adminPanel__button--delete Usuń
+        ul.pagination
+          - for (var i = 1; i <= totalPages; ++i) {
+            if i == currentPage
+              li.pagination__item.pagination__item--active= i
+            else
+              li.pagination__item= i
+          -}
       .popUp.popUp--details
         .burger.burger--details
           i.fas.fa-times
@@ -115,3 +122,4 @@ html(lang='pl')
     script(src='/javascripts/main.2706ec3191df15072433.js')
     script(src='/javascripts/admin.fe57862e5e1800877c9c.js')
     script(src='/javascripts/adminInfo.js')
+    script(src='/javascripts/adminPagination.js')
