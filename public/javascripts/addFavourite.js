@@ -71,4 +71,4 @@ setInterval(() => {
     .then((response) => {
       checkHearts(response);
     });
-}, 200);
+}, 500);

@@ -25,16 +25,34 @@ router.get('/', function (req, res) {
         $lte: priceTo ? priceTo : 10000,
       },
       tenantId: '',
-    }).sort({
-      dateAdd: -1,
-    });
+    })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .sort({
+        dateAdd: -1,
+      });
 
-    findRoom.exec((err, data) => {
-      console.log(data);
-      res.json(data);
+    findRoom.exec(async (err, data) => {
+      const count = await Room.countDocuments({
+        location: {
+          $regex: `^${location ? location : '[a-z]'}`,
+          $options: 'i',
+        },
+        price: {
+          $gte: priceFrom ? priceFrom : 0,
+          $lte: priceTo ? priceTo : 10000,
+        },
+        tenantId: '',
+      });
+
+      res.json({
+        role: req.session.role,
+        data,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page,
+      });
     });
   } else {
-    console.log('Jestem tu');
     const findRoom = Room.find({
       tenantId: '',
     })

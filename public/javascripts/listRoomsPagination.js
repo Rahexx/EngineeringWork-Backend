@@ -1,7 +1,11 @@
 const listPages = document.querySelector('.pagination');
 const items = document.querySelectorAll('.pagination__item');
 const listRooms = document.querySelector('.searchRooms__list');
+const submitBtn = document.querySelector('.searchRooms__submit');
 let page = 1;
+let locationForm = '';
+let priceFrom = '';
+let priceTo = '';
 
 const changeHeart = (item) => {
   if (item.classList.contains('far')) {
@@ -108,6 +112,86 @@ const addActiveClass = (target) => {
   target.classList.add('pagination__item--active');
 };
 
+const searchFormData = () => {
+  const dataFormValue = [];
+  const formValueLength = document.forms[0].length;
+
+  for (let i = 0; i < formValueLength; i++) {
+    const item = document.forms[0][i];
+
+    if (item.classList.contains('searchRooms__input')) {
+      dataFormValue.push(document.forms[0][i].value);
+    }
+  }
+  return dataFormValue;
+};
+
+const changePageForm = () => {
+  const url = `/listRooms?location=${locationForm}&priceFrom=${priceFrom}&priceTo=${priceTo}&page=${page}`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((response) => {
+      changeItem(response);
+    });
+};
+
+const addEventPaginationForm = () => {
+  const items = document.querySelectorAll('.pagination__item');
+
+  [...items].map((item) => {
+    item.addEventListener('click', (e) => {
+      page = Number(e.target.textContent);
+
+      if (items.length > 1) {
+        deleteActiveClass();
+      }
+      addActiveClass(e.target);
+      changePageForm();
+    });
+  });
+};
+
+const getSearchRooms = (searchParams) => {
+  const data = {
+    location: searchParams[0],
+    priceFrom: searchParams[1],
+    priceTo: searchParams[2],
+  };
+  locationForm = data.location;
+  priceFrom = data.priceFrom;
+  priceTo = data.priceTo;
+  page = 1;
+
+  const url = `/listRooms?location=${data.location}&priceFrom=${data.priceFrom}&priceTo=${data.priceTo}&page=${page}`;
+
+  fetch(url, {
+    method: 'get',
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      changeItem(response);
+      const fragment = new DocumentFragment();
+      listPages.textContent = '';
+      for (let i = 0; i < response.totalPages; i++) {
+        const li = document.createElement('li');
+        if (i + 1 === page) {
+          li.classList.add('pagination__item', 'pagination__item--active');
+        } else {
+          li.classList.add('pagination__item');
+        }
+
+        li.textContent = i + 1;
+
+        fragment.appendChild(li);
+      }
+
+      listPages.appendChild(fragment);
+      addEventPaginationForm();
+    })
+    .catch((err) => console.log(err));
+};
+
 [...items].map((item) => {
   item.addEventListener('click', (e) => {
     page = Number(e.target.textContent);
@@ -116,4 +200,11 @@ const addActiveClass = (target) => {
     addActiveClass(e.target);
     changePage();
   });
+});
+
+submitBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const searchParams = searchFormData();
+  getSearchRooms(searchParams);
 });
