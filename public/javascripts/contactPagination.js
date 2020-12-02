@@ -52,7 +52,7 @@ const changePage = () => {
   fetch(url)
     .then((response) => response.json())
     .then((response) => {
-\      changeItem(response.logins);
+      changeItem(response.logins);
     });
 };
 

@@ -29,6 +29,8 @@ router.get('/', function (req, res) {
 });
 
 router.get('/fault', function (req, res) {
+  const { page = 1, limit = 3 } = req.query;
+
   const findRoom = Room.find({
     $or: [{ tenantId: req.session.id }, { ownerId: req.session.id }],
   });
@@ -43,10 +45,16 @@ router.get('/fault', function (req, res) {
 
       const findFault = Fault.find({
         roomId: { $in: roomIds },
-      });
+      })
+        .limit(limit * 1)
+        .skip((page - 1) * limit);
 
-      findFault.exec((err, data) => {
-        res.json(data);
+      findFault.exec(async (err, data) => {
+        const count = await Fault.countDocuments({
+          roomId: { $in: roomIds },
+        });
+
+        res.json({ data, totalPages: Math.ceil(count / limit) });
       });
     } else {
       res.json(data);
