@@ -3,7 +3,6 @@ const listFaults = document.querySelector('.listFaults');
 const statusOptions = ['W trakcie', 'Naprawiono'];
 const addFaultForm = document.querySelector('.addFault__form');
 let pageFault = 1;
-let indexFault = 1;
 
 const sendNewStatus = (parentElement, status) => {
   const faultId = parentElement.dataset.id;
@@ -190,7 +189,6 @@ const addFaultPagination = (response) => {
   const pagination = document.createElement('ul');
 
   pagination.classList.add('pagination');
-  console.log(response);
 
   for (let i = 0; i < response.totalPages; i++) {
     const li = document.createElement('li');

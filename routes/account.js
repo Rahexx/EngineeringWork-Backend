@@ -103,15 +103,26 @@ router.post('/addFault/', function (req, res) {
 });
 
 router.get('/settlement', function (req, res) {
+  const { page = 1, limit = 3 } = req.query;
+
   const findSettlement = Settlement.find({
     $or: [
       { tenantLogin: req.session.login },
       { ownerLogin: req.session.login },
     ],
-  });
+  })
+    .limit(limit * 1)
+    .skip((page - 1) * limit);
 
-  findSettlement.exec((err, data) => {
-    res.json(data);
+  findSettlement.exec(async (err, data) => {
+    const count = await Settlement.countDocuments({
+      $or: [
+        { tenantLogin: req.session.login },
+        { ownerLogin: req.session.login },
+      ],
+    });
+
+    res.json({ data, totalPages: Math.ceil(count / limit) });
   });
 });
 
@@ -137,15 +148,26 @@ router.post('/addSettlement/', (req, res) => {
 });
 
 router.get('/agreement', (req, res) => {
+  const { page = 1, limit = 3 } = req.query;
+
   const findAgreement = Agreement.find({
     $or: [
       { tenantLogin: req.session.login },
       { ownerLogin: req.session.login },
     ],
-  });
+  })
+    .limit(limit * 1)
+    .skip((page - 1) * limit);
 
-  findAgreement.exec((err, data) => {
-    res.json(data);
+  findAgreement.exec(async (err, data) => {
+    const count = await Agreement.countDocuments({
+      $or: [
+        { tenantLogin: req.session.login },
+        { ownerLogin: req.session.login },
+      ],
+    });
+
+    res.json({ data, totalPages: Math.ceil(count / limit) });
   });
 });
 

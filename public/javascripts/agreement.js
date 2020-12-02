@@ -5,9 +5,9 @@ const agreementFile = document.querySelector('.addAgreement__input--file');
 const submitBtn = document.querySelector('.addAgreement__submit');
 const switcher = document.querySelector('.listInfo__Agreements');
 const listAgreement = document.querySelector('.listAgreements');
-
 let validName = false;
 let validLogin = false;
+let pageAgreement = 1;
 
 const checkAllValid = () => {
   if (validName && validLogin) {
@@ -51,31 +51,91 @@ const addAgreements = (response) => {
   const fragment = new DocumentFragment();
   listAgreement.textContent = '';
 
-  response.forEach((item, index) => {
+  response.data.forEach((item, index) => {
     const li = document.createElement('li');
-    const indexItem = document.createElement('p');
     const name = document.createElement('p');
     const link = document.createElement('a');
     const nameFile = item.pathFile.split('/');
 
     li.classList.add('listAgreements__item');
-    indexItem.classList.add('listAgreements__id');
     name.classList.add('listAgreements__name');
     link.classList.add('listAgreements__link');
 
-    indexItem.textContent = index + 1;
     link.textContent = nameFile[nameFile.length - 1];
 
     link.href = item.pathFile;
     link.setAttribute('target', '_blank');
 
-    li.appendChild(indexItem);
     name.appendChild(link);
     li.appendChild(name);
     fragment.appendChild(li);
   });
 
   listAgreement.appendChild(fragment);
+};
+
+const changePageAgreement = () => {
+  const url = `/account/agreement?page=${pageAgreement}`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((response) => {
+      addAgreements(response);
+      addAgreementPagination(response);
+    });
+};
+
+const deleteActiveClassAgreement = () => {
+  const active = document.querySelector('.pagination__agreement--active');
+  active.classList.remove('pagination__item--active');
+  active.classList.remove('pagination__agreement--active');
+};
+
+const addActiveClassAgreement = (target) => {
+  target.classList.add('pagination__item--active');
+};
+
+const addEventAgreementPaginationForm = () => {
+  const items = document.querySelectorAll('.pagination__agreement');
+
+  [...items].map((item) => {
+    item.addEventListener('click', (e) => {
+      pageAgreement = Number(e.target.textContent);
+
+      if (items.length > 1) {
+        deleteActiveClassAgreement();
+      }
+      addActiveClassAgreement(e.target);
+      changePageAgreement();
+    });
+  });
+};
+
+const addAgreementPagination = (response) => {
+  const pagination = document.createElement('ul');
+
+  pagination.classList.add('pagination');
+
+  for (let i = 0; i < response.totalPages; i++) {
+    const li = document.createElement('li');
+    if (i + 1 === pageAgreement) {
+      li.classList.add(
+        'pagination__item',
+        'pagination__item--active',
+        'pagination__agreement',
+        'pagination__agreement--active',
+      );
+    } else {
+      li.classList.add('pagination__item', 'pagination__agreement');
+    }
+
+    li.textContent = i + 1;
+
+    pagination.appendChild(li);
+  }
+
+  listAgreement.appendChild(pagination);
+  addEventAgreementPaginationForm();
 };
 
 nameAgreement.addEventListener('input', validNameAgreement);
@@ -99,23 +159,24 @@ otherLogin.addEventListener('input', () => {
     otherLogin.style.border = '1px solid red';
   }
 });
-
 setInterval(() => {
   checkAllValid();
 }, 500);
 
 switcher.addEventListener('click', () => {
-  const url = `/account/agreement`;
+  pageAgreement = 1;
+  const url = `/account/agreement?page=${pageAgreement}`;
 
   fetch(url, {
     method: 'get',
   })
     .then((response) => response.json())
     .then((response) => {
-      if (response.length === 0) {
+      if (response.data.length === 0) {
         emptyMessageAgreement();
       } else {
         addAgreements(response);
+        addAgreementPagination(response);
       }
     });
 });

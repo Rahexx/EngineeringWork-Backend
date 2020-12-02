@@ -1,6 +1,7 @@
 const showSeetlements = document.querySelector('.listInfo__Settlement');
 const listSeetlements = document.querySelector('.listSettlements');
 const addSettlementForm = document.querySelector('.addSettlement__form');
+let pageSettlement = 1;
 
 const closeFormSettlement = () => {
   const close = document.querySelector('.addSettlement__exit');
@@ -128,7 +129,7 @@ const addSettlements = (response) => {
   const fragment = new DocumentFragment();
   listSeetlements.textContent = '';
 
-  response.forEach((item, index) => {
+  response.data.forEach((item, index) => {
     const date = new Date(item.date);
     const li = document.createElement('li');
     const indexItem = document.createElement('p');
@@ -178,18 +179,84 @@ const addSettlements = (response) => {
   addEventDeleteBtn();
 };
 
+const changePageSettlement = () => {
+  const url = `/account/settlement?page=${pageSettlement}`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((response) => {
+      addSettlements(response);
+      addSettlementPagination(response);
+    });
+};
+
+const deleteActiveClassSettlement = () => {
+  const active = document.querySelector('.pagination__settlement--active');
+  active.classList.remove('pagination__item--active');
+  active.classList.remove('pagination__settlement--active');
+};
+
+const addActiveClassSettlement = (target) => {
+  target.classList.add('pagination__item--active');
+};
+
+const addEventSettlementPagination = () => {
+  const items = document.querySelectorAll('.pagination__settlement');
+
+  [...items].map((item) => {
+    item.addEventListener('click', (e) => {
+      pageSettlement = Number(e.target.textContent);
+
+      if (items.length > 1) {
+        deleteActiveClassSettlement();
+      }
+      addActiveClassSettlement(e.target);
+      changePageSettlement();
+    });
+  });
+};
+
+const addSettlementPagination = (response) => {
+  const pagination = document.createElement('ul');
+
+  pagination.classList.add('pagination');
+
+  for (let i = 0; i < response.totalPages; i++) {
+    const li = document.createElement('li');
+    if (i + 1 === pageSettlement) {
+      li.classList.add(
+        'pagination__item',
+        'pagination__item--active',
+        'pagination__settlement',
+        'pagination__settlement--active',
+      );
+    } else {
+      li.classList.add('pagination__item', 'pagination__settlement');
+    }
+
+    li.textContent = i + 1;
+
+    pagination.appendChild(li);
+  }
+
+  listSeetlements.appendChild(pagination);
+  addEventSettlementPagination();
+};
+
 showSeetlements.addEventListener('click', (e) => {
-  const url = `/account/settlement`;
+  pageSettlement = 1;
+  const url = `/account/settlement?page=${pageSettlement}`;
 
   fetch(url, {
     method: 'get',
   })
     .then((response) => response.json())
     .then((response) => {
-      if (response.length === 0) {
+      if (response.data.length === 0) {
         emptyMessageSettlement();
       } else {
         addSettlements(response);
+        addSettlementPagination(response);
       }
     });
 });
