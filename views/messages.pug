@@ -19,6 +19,13 @@ html(lang='pl')
         ul.userList
           each item in logins
             li.userList__item= item
+          ul.pagination
+            - for (var i = 1; i <= totalPages; ++i) {
+              if i == currentPage
+                li.pagination__item.pagination__item--active= i
+              else
+                li.pagination__item= i
+            -}
       .chat
         ul.chat__messages
         .chat__serve
@@ -27,6 +34,8 @@ html(lang='pl')
             input.chat__input(type='text' placeholder='Aa')
             button.chat__button(style='outline:none')
               i.fas.fa-arrow-circle-right.chat__send
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js')
     script(src="/socket.io/socket.io.js")
     script(src='/javascripts/messages.13639d573850a56b9b4c.js')
     script(src='/javascripts/sendMessage.js')
+    script(src="/javascripts/contactPagination.js")

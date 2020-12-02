@@ -13,7 +13,9 @@ router.all('*', (req, res, next) => {
   next();
 });
 
-router.get('/', function (req, res, next) {
+router.get('/', (req, res) => {
+  const { page = 1, limit = 1, isJson = false } = req.query;
+
   const findMessage = Message.find({
     $or: [{ idFrom: req.session.id }, { idTo: req.session.id }],
   });
@@ -33,25 +35,51 @@ router.get('/', function (req, res, next) {
     if (dataId.length > 0) {
       const findUser = User.find({
         _id: { $in: dataId },
-      });
+      })
+        .limit(limit * 1)
+        .skip((page - 1) * limit);
 
-      findUser.exec((err, data) => {
+      findUser.exec(async (err, data) => {
+        const count = await User.countDocuments({
+          _id: { $in: dataId },
+        });
+
         data.forEach((item) => {
           dataLogin.push(item.login);
         });
 
-        res.render('messages', {
-          role: req.session.role,
-          loginUser: req.session.login,
-          data,
-          logins: dataLogin,
-        });
+        if (isJson === false) {
+          res.render('messages', {
+            role: req.session.role,
+            loginUser: req.session.login,
+            data,
+            logins: dataLogin,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page,
+          });
+        } else {
+          res.json({
+            role: req.session.role,
+            loginUser: req.session.login,
+            data,
+            logins: dataLogin,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page,
+          });
+        }
+      });
+    } else {
+      res.render('messages', {
+        role: req.session.role,
+        loginUser: req.session.login,
+        data,
+        logins: dataLogin,
       });
     }
   });
 });
 
-router.get('/:id', function (req, res, next) {
+router.get('/:id', function (req, res) {
   const findMessage = Message.find({
     idFrom: { $in: [req.params.id, req.session.id] },
     idTo: { $in: [req.params.id, req.session.id] },
@@ -72,7 +100,7 @@ router.get('/:id', function (req, res, next) {
   });
 });
 
-router.get('/getConversation/:login', function (req, res, next) {
+router.get('/getConversation/:login', function (req, res) {
   const loginUser = req.session.login;
   const otherUser = req.params.login;
   const idUsers = [];
