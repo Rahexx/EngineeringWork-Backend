@@ -49,8 +49,17 @@ html(lang='pl')
                     | Aby przejść do pokoju kliknij
                     a.favourites__link(href=`/listRooms/${item._id}`) Tutaj
                 i.fas.fa-heart.favourites__heart
+        ul.pagination
+          - for (var i = 1; i <= totalPages; ++i) {
+            if i == currentPage
+              li.pagination__item.pagination__item--active= i
+            else
+              li.pagination__item= i
+          -}
     footer.footer
       p.footer__text © Prawa zastrzeżone przez Andrzej Łuszcz
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js')
     script(src='/javascripts/main.2706ec3191df15072433.js')
     script(src='/javascripts/favourite.4ce43ca627e7b8917733.js')
     script(src='/javascripts/removeFavourite.js')
+    script(src='/javascripts/favouritePagination.js')

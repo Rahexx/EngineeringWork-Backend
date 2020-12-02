@@ -14,6 +14,8 @@ router.all('*', (req, res, next) => {
 });
 
 router.get('/', function (req, res) {
+  const { page = 1, limit = 2, isJson = false } = req.query;
+
   const findFavourite = Favourite.find({
     userId: req.session.id,
   });
@@ -27,12 +29,31 @@ router.get('/', function (req, res) {
 
     const findRoom = Room.find({
       _id: { $in: idRooms },
-    }).sort({
-      dateAdd: -1,
-    });
+    })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .sort({
+        dateAdd: -1,
+      });
 
-    findRoom.exec((err, data) => {
-      res.render('favourites', { role: req.session.role, data });
+    findRoom.exec(async (err, data) => {
+      const count = await Room.countDocuments({
+        _id: { $in: idRooms },
+      });
+
+      if (isJson) {
+        res.json({
+          data,
+          totalPages: Math.ceil(count / limit),
+        });
+      } else {
+        res.render('favourites', {
+          role: req.session.role,
+          data,
+          totalPages: Math.ceil(count / limit),
+          currentPage: page,
+        });
+      }
     });
   });
 });

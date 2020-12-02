@@ -20,11 +20,11 @@ html(lang='pl')
       nav.navigation
         ul.navigation__list
           li.nagivation__item
-            a.navigation__link.navigation__link--active(href='/')
+            a.navigation__link(href='/')
               | Strona
               | g&lstrok;&oacute;wna
           li.nagivation__item
-            a.navigation__link(href='/listRooms') Pokoje
+            a.navigation__link.navigation__link--active(href='/listRooms') Pokoje
           if role
             li.nagivation__item
               a.navigation__link(href='/favourites') Ulubione
@@ -51,11 +51,11 @@ html(lang='pl')
       nav.navigation(style='padding-left: 50vw')
         ul.navigation__list
           li.nagivation__item
-            a.navigation__link.navigation__link--active(href='/')
+            a.navigation__link(href='/')
               | Strona
               | g&lstrok;&oacute;wna
           li.nagivation__item
-            a.navigation__link(href='/listRooms') Pokoje
+            a.navigation__link.navigation__link--active(href='/listRooms') Pokoje
           if role
             li.nagivation__item
               a.navigation__link(href='/favourites') Ulubione
