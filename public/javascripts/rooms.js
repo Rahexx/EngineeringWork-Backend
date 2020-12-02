@@ -28,6 +28,9 @@ let isPriceValid = false;
 let isLocationValid = false;
 let isFileValid = false;
 
+// page variables
+let pageRoom = 1;
+
 const closeAddUser = (isPopUp = false) => {
   const closeList = document.querySelector('.listInfo__switch--rooms');
 
@@ -202,6 +205,7 @@ const addRooms = (response) => {
     const indexItem = document.createElement('p');
     const image = document.createElement('img');
     const title = document.createElement('p');
+    const button = document.createElement('button');
 
     li.classList.add('listRooms__item');
     indexItem.classList.add('listRooms__id');
@@ -214,13 +218,7 @@ const addRooms = (response) => {
     indexItem.textContent = index + 1;
     title.textContent = item.title;
 
-    li.appendChild(indexItem);
-    li.appendChild(image);
-    li.appendChild(title);
-
     if (item.ownerId === currentUser) {
-      const button = document.createElement('button');
-
       if (item.tenantId !== '') {
         button.classList.add('listRooms__btn--delete');
         button.textContent = 'Usuń z pokoju';
@@ -228,9 +226,17 @@ const addRooms = (response) => {
         button.classList.add('listRooms__btn--add');
         button.textContent = 'Dodaj do pokoju';
       }
-
-      li.appendChild(button);
+    } else {
+      button.style.opacity = '0';
+      button.disabled = true;
+      button.classList.add('listRooms__btn--add');
     }
+
+    li.appendChild(indexItem);
+    li.appendChild(image);
+    li.appendChild(title);
+    li.appendChild(button);
+
     fragment.appendChild(li);
   });
 
@@ -257,8 +263,74 @@ const emptyMessageRooms = () => {
   listRooms.appendChild(li);
 };
 
+// Pagination
+const changePageRoom = () => {
+  const url = `/account/rooms?page=${pageRoom}`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((response) => {
+      addRooms(response);
+      addRoomPagination(response);
+    });
+};
+
+const deleteActiveClassRoom = () => {
+  const active = document.querySelector('.pagination__room--active');
+  active.classList.remove('pagination__item--active');
+  active.classList.remove('pagination__room--active');
+};
+
+const addActiveClassRoom = (target) => {
+  target.classList.add('pagination__item--active');
+};
+
+const addEventRoomPagination = () => {
+  const items = document.querySelectorAll('.pagination__room');
+
+  [...items].map((item) => {
+    item.addEventListener('click', (e) => {
+      pageRoom = Number(e.target.textContent);
+
+      if (items.length > 1) {
+        deleteActiveClassRoom();
+      }
+      addActiveClassRoom(e.target);
+      changePageRoom();
+    });
+  });
+};
+
+const addRoomPagination = (response) => {
+  const pagination = document.createElement('ul');
+
+  pagination.classList.add('pagination');
+
+  for (let i = 0; i < response.totalPages; i++) {
+    const li = document.createElement('li');
+    if (i + 1 === pageRoom) {
+      li.classList.add(
+        'pagination__item',
+        'pagination__item--active',
+        'pagination__room',
+        'pagination__room--active',
+      );
+    } else {
+      li.classList.add('pagination__item', 'pagination__room');
+    }
+
+    li.textContent = i + 1;
+
+    pagination.appendChild(li);
+  }
+
+  listRooms.appendChild(pagination);
+  addEventRoomPagination();
+};
+
 switcherRoom.addEventListener('click', () => {
-  const url = `/account/rooms`;
+  pageRoom = 1;
+  const url = `/account/rooms?page=${pageRoom}`;
 
   fetch(url, {
     method: 'get',
@@ -269,6 +341,7 @@ switcherRoom.addEventListener('click', () => {
         emptyMessageRooms();
       } else {
         addRooms(response);
+        addRoomPagination(response);
       }
     });
 });

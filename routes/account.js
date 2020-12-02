@@ -199,16 +199,24 @@ router.post('/addAgreement', (req, res) => {
 });
 
 router.get('/rooms', (req, res) => {
+  const { page = 1, limit = 3 } = req.query;
+
   const findRoom = Room.find({
     $or: [{ tenantId: req.session.id }, { ownerId: req.session.id }],
-  });
+  })
+    .limit(limit * 1)
+    .skip((page - 1) * limit);
 
-  findRoom.exec((err, data) => {
+  findRoom.exec(async (err, data) => {
     const currentUser = req.session.id;
+    const count = await Room.countDocuments({
+      $or: [{ tenantId: req.session.id }, { ownerId: req.session.id }],
+    });
 
     res.json({
       data,
       currentUser,
+      totalPages: Math.ceil(count / limit),
     });
   });
 });
