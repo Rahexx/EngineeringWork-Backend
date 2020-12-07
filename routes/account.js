@@ -24,7 +24,7 @@ router.get('/', function (req, res) {
   findUser.exec((err, data) => {
     const newDate = new Date(data.date);
     const formatDate = newDate.toLocaleDateString('en-US');
-    res.render('account', { data, formatDate });
+    res.render('account', { role: req.session.role, data, formatDate });
   });
 });
 

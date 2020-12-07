@@ -15,7 +15,7 @@ router.all('*', (req, res, next) => {
 });
 
 router.get('/', function (req, res, next) {
-  const { page = 1, limit = 2, isJson = false } = req.query;
+  const { page = 1, limit = 3, isJson = false } = req.query;
 
   const findUser = User.find({
     _id: { $nin: [req.session.id] },
@@ -47,7 +47,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/searchLogin', function (req, res) {
-  const { page = 1, limit = 2, isJson = false, login } = req.query;
+  const { page = 1, limit = 3, isJson = false, login } = req.query;
 
   const findUser = User.find({
     _id: { $nin: [req.session.id] },
