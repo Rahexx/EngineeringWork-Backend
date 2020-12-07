@@ -17,7 +17,9 @@ router.all('*', (req, res, next) => {
 router.get('/', (req, res) => {
   const { page = 1, limit = 2, isJson = false } = req.query;
 
-  const findUser = User.find()
+  const findUser = User.find({
+    isArchived: false,
+  })
     .limit(limit * 1)
     .skip((page - 1) * limit)
     .sort({
@@ -60,7 +62,12 @@ router.get('/edit/:id', function (req, res) {
 });
 
 router.get('/delete/:id', function (req, res) {
-  const findUser = User.findByIdAndDelete({ _id: req.params.id });
+  const findUser = User.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      isArchived: true,
+    },
+  );
 
   findUser.exec((err, data) => {
     res.json(data);
@@ -72,6 +79,7 @@ router.get('/searchUser', function (req, res) {
 
   const findUser = User.find({
     login: { $regex: `^${login}`, $options: 'i' },
+    isArchived: false,
   })
     .limit(limit * 1)
     .skip((page - 1) * limit)

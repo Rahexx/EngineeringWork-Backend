@@ -19,6 +19,7 @@ router.get('/', function (req, res, next) {
 
   const findUser = User.find({
     _id: { $nin: [req.session.id] },
+    isArchived: false,
   })
     .limit(limit * 1)
     .skip((page - 1) * limit)
@@ -52,6 +53,7 @@ router.get('/searchLogin', function (req, res) {
   const findUser = User.find({
     _id: { $nin: [req.session.id] },
     login: { $regex: `^${login}`, $options: 'i' },
+    isArchived: false,
   })
     .limit(limit * 1)
     .skip((page - 1) * limit)
