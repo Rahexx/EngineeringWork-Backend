@@ -138,6 +138,17 @@ const addAgreementPagination = (response) => {
   addEventAgreementPaginationForm();
 };
 
+const closePopUp = () => {
+  const close = document.querySelector('.addAgreement__exit');
+
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+  const cancelled = !close.dispatchEvent(event);
+};
+
 nameAgreement.addEventListener('input', validNameAgreement);
 otherLogin.addEventListener('input', () => {
   if (otherLogin.value) {
@@ -178,5 +189,34 @@ switcher.addEventListener('click', () => {
         addAgreements(response);
         addAgreementPagination(response);
       }
+    });
+});
+
+agreementForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const agreementFile = document.querySelector('.addAgreement__input--file');
+  const nameFile = document.querySelectorAll('.addAgreement__input')[0].value;
+  const login = document.querySelectorAll('.addAgreement__input')[1].value;
+
+  const data = new FormData();
+
+  data.append('file', agreementFile.files[0]);
+  data.append('name', nameFile);
+  data.append('login', login);
+
+  fetch('/account/addAgreement', {
+    method: 'POST',
+    body: data,
+  })
+    .then((res) => res.json)
+    .then((res) => {
+      console.log(res);
+      if (res) {
+        closePopUp();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });
