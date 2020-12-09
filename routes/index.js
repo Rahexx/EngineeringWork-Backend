@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Room = require('../models/room');
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   const findRoom = Room.find()
     .sort({
       dateAdd: -1,
@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
   });
 });
 
-router.get('/logOut', function (req, res, next) {
+router.get('/logOut', function (req, res) {
   req.session = null;
   res.redirect('/');
 });

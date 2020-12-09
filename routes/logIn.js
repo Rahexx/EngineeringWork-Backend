@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 router.get('/', function (req, res) {
@@ -28,14 +29,20 @@ router.post('/', function (req, res) {
       if (data === null) {
         res.json({ isLog: false });
       } else {
-        if (data.login == loginForm && data.password == passwordForm) {
-          req.session.role = data.role;
-          req.session.id = data._id;
-          req.session.login = data.login;
-          res.json({ isLog: true });
-        } else {
-          res.json({ isLog: false });
-        }
+        bcrypt.compare(passwordForm, data.password, function (err, match) {
+          if (match) {
+            if (data.login == loginForm) {
+              req.session.role = data.role;
+              req.session.id = data._id;
+              req.session.login = data.login;
+              res.json({ isLog: true });
+            } else {
+              res.json({ isLog: false });
+            }
+          } else {
+            console.log(err);
+          }
+        });
       }
     });
   } else {

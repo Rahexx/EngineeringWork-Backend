@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const {
   nameValid,
@@ -36,17 +37,20 @@ router.post('/', function (req, res, next) {
     isPasswordValid
   ) {
     res.json({ isAdd: true });
-    const newUser = new User({
-      name: isNameValid,
-      surname: isSurnameValid,
-      email: isEmailValid,
-      phone: isPhoneValid,
-      date: isDateValid,
-      sex: body.sex,
-      login: isLoginValid,
-      password: isPasswordValid,
+
+    bcrypt.hash(isPasswordValid, 10, function (err, hash) {
+      const newUser = new User({
+        name: isNameValid,
+        surname: isSurnameValid,
+        email: isEmailValid,
+        phone: isPhoneValid,
+        date: isDateValid,
+        sex: body.sex,
+        login: isLoginValid,
+        password: hash,
+      });
+      newUser.save();
     });
-    newUser.save();
   } else {
     res.json({
       isAdd: false,
