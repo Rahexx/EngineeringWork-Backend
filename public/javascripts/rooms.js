@@ -1,13 +1,14 @@
 const switcherRoom = document.querySelector('.listInfo__switch--rooms');
 const listRooms = document.querySelector('.listRooms');
 
-// Add room inputs
+// Add room elements
 const titleRoom = document.querySelector('.addRoom__input--title');
 const descriptionRoom = document.querySelector('.addRoom__input--description');
 const priceRoom = document.querySelector('.addRoom__input--price');
 const locationRoom = document.querySelector('.addRoom__input--location');
 const imageRoom = document.querySelector('.addRoom__input--file');
 const submitRoomBtn = document.querySelector('.addRoom__submit');
+const roomForm = document.querySelector('.addRoom__form');
 
 // error elements
 const titleError = document.querySelector('.addRoom__titleError');
@@ -328,6 +329,19 @@ const addRoomPagination = (response) => {
   addEventRoomPagination();
 };
 
+// close addRoom popUp
+
+const closePopUpRoom = () => {
+  const close = document.querySelector('.addRoom__exit');
+
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+  const cancelled = !close.dispatchEvent(event);
+};
+
 switcherRoom.addEventListener('click', () => {
   pageRoom = 1;
   const url = `/account/rooms?page=${pageRoom}`;
@@ -355,6 +369,34 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   submitForm();
+});
+roomForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const image = document.querySelector('.addRoom__input--file');
+
+  const data = new FormData();
+
+  data.append('file', image.files[0]);
+  data.append('title', titleRoom.value);
+  data.append('description', descriptionRoom.value);
+  data.append('price', priceRoom.value);
+  data.append('location', locationRoom.value);
+
+  fetch('/account/addRoom', {
+    method: 'POST',
+    body: data,
+  })
+    .then((res) => res.json)
+    .then((res) => {
+      console.log(res);
+      if (res) {
+        closePopUpRoom();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 setInterval(() => {
